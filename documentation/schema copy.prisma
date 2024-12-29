@@ -1,0 +1,242 @@
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+model faq {
+  id             String          @id @default(auto()) @map("_id") @db.ObjectId
+  slug           String          @unique
+  question       String          @default("")
+  userEmail      String          @default("")
+  priority       Int             @default(1)
+  userPlan       String          @default("basic")
+  viewerCount    Int            @default(0)
+  loveCount      Int            @default(0)
+  dislovCount    Int            @default(0)
+  answers        answer[]  
+  tagged         tagged[]  
+  published      Boolean        @default(false)
+  rejected       Boolean        @default(false)
+  gotAnswer      Boolean        @default(false)
+  rejectedReason String         @default("")
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  images         FaqImage[]
+  voiceRecordings FaqVoiceRecording[]
+  faqInteractions faqInteraction[]
+}
+
+model FaqImage {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  url       String
+  publicId  String
+  faqId     String   @db.ObjectId
+  faq       faq      @relation(fields: [faqId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}
+
+model FaqVoiceRecording {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  url       String
+  publicId  String
+  faqId     String   @db.ObjectId
+  faq       faq      @relation(fields: [faqId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}
+
+model faqInteraction {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  userEmail String?
+  userImage String?
+  isLoved   Boolean @default(false)
+  isDisliked Boolean @default(false)
+  faqId     String   @db.ObjectId
+  faq       faq      @relation(fields: [faqId], references: [id])
+
+   @@unique([faqId, userEmail])
+  @@index([faqId])
+  @@index([userEmail])
+}
+
+model answer {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  content   String    @default("")
+  userEmail   String?
+  faqId     String    @db.ObjectId
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  faq       faq       @relation(fields: [faqId], references: [id])
+  comments  comment[] @relation("AnswerToComment")
+}
+
+model comment {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  content   String   @default("")
+  answerId  String   @db.ObjectId
+  answer    answer   @relation("AnswerToComment", fields: [answerId], references: [id])
+  userEmail String?  
+  userImage String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model tagged {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  faqId     String   @db.ObjectId
+  tag       String   @default("")
+  faq       faq      @relation(fields: [faqId], references: [id])
+}
+
+model tag {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  tag      String @default("")
+}
+
+
+model contactus {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String
+  mobile    String
+  message   String
+  createdAt DateTime @default(now())
+}
+
+model freeOffer {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String
+  mobile    String
+  createdAt DateTime @default(now())
+}
+
+
+ model User {
+  id            String          @id @default(auto()) @map("_id") @db.ObjectId
+  name          String?
+  email         String?         @unique
+  mobile           String? @default("")
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  // Optional for WebAuthn support
+  Authenticator Authenticator[]
+  subscriptionType String?   @default("free")
+  initailBalance  Int? @default(10)
+  usedBalance Int? @default(0)
+  mobileVerified Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+ 
+ 
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.String
+  session_state     String?
+ 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+ 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  @@unique([provider, providerAccountId])
+}
+ 
+model Session {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String   @unique
+  userId       String   @db.ObjectId
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+ 
+model VerificationToken {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  identifier String
+  token      String
+  expires    DateTime
+ 
+  @@unique([identifier, token])
+}
+ 
+// Optional for WebAuthn support
+model Authenticator {
+  credentialID         String  @id @map("_id")
+  userId               String  @db.ObjectId
+  providerAccountId    String
+  credentialPublicKey  String
+  counter              Int
+  credentialDeviceType String
+  credentialBackedUp   Boolean
+  transports           String?
+ 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  @@unique([userId, credentialID])
+}
+
+model Blogvisitor {
+  id                     String                     @id @default(auto()) @map("_id") @db.ObjectId
+  blogSlug               String                     @unique
+  counter                Int                        @default(0)
+  visitorsInformation    Blog_visitor_informations[] @relation("BlogVisitorInformations")
+  createdAt             DateTime                   @default(now())
+  updatedAt             DateTime                   @updatedAt
+}
+
+model Blog_visitor_informations {
+  id                   String                @id @default(auto()) @map("_id") @db.ObjectId
+  ip                   String
+  browser              String
+  os                   String
+  userEmail            String                @default("visitor")
+  country              String?               // Added country field
+  city                 String?               // Added city field
+  blogVisitorId        String?               @db.ObjectId // Foreign key to Blogvisitor
+  blogVisitor          Blogvisitor?          @relation("BlogVisitorInformations", fields: [blogVisitorId], references: [id])
+  // comments             Visitor_comment[]     // New relation to comments
+  
+  @@index([ip])
+}
+
+
+
+
+// model Visitor_comment  {
+//   id                   String             @id @default(auto()) @map("_id") @db.ObjectId
+//   content              String
+//   blogSlug            String              // Field to link to specific blog posts
+//   visitorId           String             @db.ObjectId
+//   visitor             Visitor            @relation(fields: [visitorId], references: [id])
+//   visitorInterestingId String            @db.ObjectId
+//   visitorInteresting  Visitor_interesting @relation(fields: [visitorInterestingId], references: [id])
+//   createdAt           DateTime           @default(now())
+//   updatedAt           DateTime           @updatedAt
+  
+//   @@index([visitorId])
+//   @@index([visitorInterestingId])
+//   @@index([blogSlug])  // Index for faster blog-specific queries
+// }
+
+ 
+ 

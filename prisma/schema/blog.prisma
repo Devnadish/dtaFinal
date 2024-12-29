@@ -1,0 +1,34 @@
+model Blogvisitor {
+  id                  String                    @id @default(auto()) @map("_id") @db.ObjectId
+  blogSlug            String                    @unique
+  counter             Int                       @default(0)
+  visitorsInformation Blogvisitorinformations[] @relation("BlogVisitorInformations")
+  createdAt           DateTime                  @default(now())
+  updatedAt           DateTime                  @updatedAt
+}
+
+model Blogvisitorinformations {
+  id            String       @id @default(auto()) @map("_id") @db.ObjectId
+  ip            String
+  browser       String?
+  os            String?
+  userEmail     String       @default("visitor")
+  country       String? // Added country field
+  city          String? // Added city field
+  latitude      String? // Added city field
+  longitude     String? // Added city field
+  blogVisitorId String?      @db.ObjectId // Foreign key to Blogvisitor
+  blogVisitor   Blogvisitor? @relation("BlogVisitorInformations", fields: [blogVisitorId], references: [id])
+
+  @@index([ip])
+}
+
+model blogcomments {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  blogSlug  String
+  content   String
+  userEmail String
+  userImage String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

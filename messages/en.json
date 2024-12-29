@@ -1,0 +1,390 @@
+{
+  "NotFound": {
+    "title": "404",
+    "message": "Page Not Found",
+    "description": "The page you are looking for is not found",
+    "button": "Home Page"
+  },
+
+  "HomePage": {
+    "Service": "Our Service",
+    "Expert": "Our Expert",
+    "Support": "Our Support",
+    "free": "Free for you",
+    "dreamtoApp": "Dream to App"
+  },
+
+  "button": {
+    "showMore": "Show More",
+    "showLess": "Show Less",
+    "showGallery": "Show Gallery",
+    "details": "Details",
+    "sending": "Sending...",
+    "more": "More Details"
+  },
+  "addFaq": {
+    "title": "Submit Your Question !!",
+    "policyHint": "Question Submission Guidelines:",
+    "currentPlan": "Current Plan",
+    "currcentBalance": "Current Balance",
+    "planLimits": "Plan Limits",
+    "upgradePlan": "Upgrade Plan",
+    "upgradeNow": "Upgrade Now",
+    "question": "Question",
+    "questionSubmitted": "Question Submitted Successfully",
+    "pcHint1": "Questions should be clear and specific",
+    "pcHint2": "Avoid sharing sensitive personal information",
+    "pcHint3": "Higher priority questions (4-5) are for urgent matters",
+    "pcHint4": "Images should be relevant to the question",
+    "pcHint5": "Voice recordings should be clear and concise",
+    "textLabelInput": "Your Question",
+    "textPlaceholder": "Describe your question in detail minimum 10 characters",
+    "charactersLeft": "characters left",
+    "quastionGuid1": "Must be between 10 and 500 characters",
+    "quastionGuid2": "Cannot contain only special characters",
+    "quastionGuid3": "Should be clear and specific",
+    "PriorityLevel": "Priority Level",
+    "Priority1": "replay winth in 1 day   ",
+    "Priority2": "replay winth in two days",
+    "Priority3": "replay winth in three days",
+    "Priority4": "replay winth in four days",
+    "Priority5": "replay winth in five days",
+
+    "priorityHint": "Priority Hints",
+    "priorityHint1": "priority (5) are for urgent matters and should be answered within 1 day ",
+    "priorityHint2": "priority (4) are for non-urgent matters and should be answered within 2 days",
+    "priorityHint3": "priority (3) are for non-urgent matters and should be answered within 3 days",
+    "priorityHint4": "priority (2) are for non-urgent matters and should be answered within 4 days",
+    "priorityHint5": "priority (1) are for non-urgent matters and should be answered within 5 days",
+    "priorityHint6": "Replays Will in working days  days off not include",
+    "priorityLevel": "Priority Level",
+    "priorityLevel1": "Urgent",
+    "priorityLevel2": "Urgent",
+    "priorityLevel3": "Important",
+    "priorityLevel4": "Important",
+    "priorityLevel5": "Normal",
+    "attachImages": "Attach Images",
+    "imagesallowed": "Images allowed",
+    "imagePlaceholder": "Attach images relevant to your question (minimum 1 image) maximum 5 images allowed Or click to select",
+
+    "imageHint1": "Images should be relevant to the question",
+    "imageHint2": "You can attach a minimum of 1 image and a maximum of 5 images. Make sure to select images that best illustrate your inquiry.",
+    "imageHint3": "Use high-quality images that are clear and easy to understand. Blurry or unclear images may hinder the response process.",
+    "imageHint4": "Check that your images are in an acceptable format (e.g., JPEG, PNG) to avoid submission issues",
+    "imageHint5": "If any submitted images violate our content policies, your account may be deactivated. This includes images that are inappropriate, irrelevant, or do not adhere to the guidelines set forth by the system.",
+
+    "attachVoice": "Attach Voice Recording",
+    "voicelength": "Max  minutes",
+    "voicePlaceholder": "Attach voice recording relevant to your question (minimum 1 voice recording)  ",
+    "voiceHint1": "Ensure your voice recordings are clear and easy to understand. Speak at a moderate pace and articulate your words to enhance comprehension.",
+    "voiceHint2": "Keep your recordings brief and to the point. Aim to convey your message within the maximum length of 1 minute to maintain focus and clarity.",
+    "voiceHint3": "Record in a quiet environment to minimize background noise. This will help ensure that your voice is the primary focus of the recording.",
+    "voiceHint4": "Maintain an appropriate distance from the microphone. This helps capture your voice clearly without distortion or excessive volume fluctuations.",
+    "voiceHint5": "Make sure your voice recording is directly related to your question. This will provide additional context and assist in a quicker response from the support team.",
+
+    "confirmation": "Are you sure you want to submit this question? Once submitted, it cannot be edited or deleted. You will be redirected to the dashboard to view your submitted question. and will deducted from your current balance",
+
+    "success": "Your question has been submitted successfully",
+    "successDesc": "We will get back to you soon",
+    "show": "Show",
+    "hide": "Hide",
+    "Hint": "Hint",
+    "letterRemaining": "Letter Remaining",
+    "leftSideOfLetter": "Must be between ",
+    "and": "and",
+    "characters": "character",
+    "questionlength": "Question must be at least 10 characters long",
+    "hasSpecialCharsOnly": "Question cannot contain only special characters",
+    "quastionMaxLength": "Characters Remaining ",
+    "minutes": "minute",
+    "maxImagereached": "Maximum images limit reached",
+    "maxImageAllowed": "You can only upload up to",
+    "image": "image",
+    "dragDrop": "Drag and drop or click to select",
+    "or": "or",
+    "maxsize": "Maximum file size: 5MB",
+
+    "uploading": "Uploading...",
+
+    "recordingOn": "Recording On Progress ....",
+    "recordingOff": "Recording Off",
+    "recordingTime": "Recording Time",
+    "error": "Error",
+    "enterValidQuestion": "Please enter a valid question",
+    "loginRequired": "Login Required",
+    "loginToAskQuestions": "Please login to ask questions",
+    "welcome": "Welcome,",
+    "remainingQuestions": "Remaining Questions",
+    "upgradePlanPrompt": "Your balance is running low. Consider upgrading to our Pro plan for unlimited questions!",
+    "planFeatures": "Plan Features",
+    "freePlan": "Free Plan",
+    "proPlan": "Pro Plan",
+    "freePlanFeature1": "5 questions per month",
+    "freePlanFeature2": "Basic priority support",
+    "freePlanFeature3": "Standard response time",
+    "proPlanFeature1": "Unlimited questions",
+    "proPlanFeature2": "Priority support",
+    "proPlanFeature3": "Faster response time",
+
+    "insufficientBalance": "Insufficient balance. Please upgrade your plan.",
+
+    "description": "Description",
+    "priority": "Priority",
+    "submitting": "Submitting...",
+    "submit": "Submit Question",
+    "questionAdded": "Question added successfully",
+    "errorOccurred": "An error occurred",
+    "askQuestion": "Ask a Question"
+  },
+  "workSample": {
+    "pageTitle": "Some of Our Work Samples",
+    "pageDescription": "We are always working on the customer's work, which represents our work.",
+    "smMenuTilte": "Social Media",
+    "uiUxMenuTitle": "User Interface",
+    "identityMenuTitle": "Visual Identity",
+    "mixedMenuTitl": "Multimedia",
+    "singBoardMEnuTitle": "Bulletin Board",
+    "cncMenuTitle": "CNC Work",
+    "Character": "Character",
+    "Coverpage": "Cover Page",
+    "Logo": "Logo",
+    "flyer": "Flyer",
+    "infograph": "Infographic",
+    "menu": "Menu",
+    "package": "Package",
+    "poster": "Poster",
+    "pagetitle": "At Dream to App, we specialize in delivering exceptional web and mobile solutions tailored to your unique needs. Our skilled team combines cutting-edge technology with innovative design and visual identity to create user-friendly applications that enhance both functionality and user experience. We prioritize UI/UX principles to ensure every interaction is intuitive and engaging. With a strong commitment to quality and professionalism, we execute each project with efficiency and attention to detail. Partner with Dream to App to experience the difference that true expertise can make in your digital journey.",
+    "galleryof": "Gallery of ",
+    "nosample": "No images found for this gallery."
+  },
+
+  "services": {
+    "mobileApp": "Mobile App Development",
+    "mobileAppTitle": "Custom apps for a seamless user experience.",
+
+    "webApp": "Web App Development",
+    "webAppTitle": "Interactive web apps providing dynamic functionality.",
+
+    "ecommerce": "E-commerce Solutions",
+    "ecommerceTitle": "Online stores that simplify buying and selling.",
+
+    "design": "User Interface Design",
+    "designTitle": "Visually appealing and user-friendly interfaces.",
+
+    "digitalMarketing": "Digital Marketing",
+    "digitalMarketingTitle": "Promoting products through digital channels.",
+
+    "emailMarketing": "Email Marketing",
+    "emailMarketingTitle": "Targeted emails to boost engagement."
+  },
+  "Free": {
+    "consultation": "Consultation",
+    "consultationTitle": "Get expert advice on web design and development at no cost!",
+
+    "evaluation": "Free Evaluation",
+    "evaluationTitle": "Free Evaluation for your digital projects!",
+
+    "firstPurchaseDiscount": "First Purchase Discount",
+    "firstPurchaseDiscountTitle": "Enjoy a 20% discount on your first purchase!",
+
+    "referralProgram": "Referral Program",
+    "referralProgramTitle": "Refer a friend and both earn 100 SAR towards your next purchase!",
+    "WelcomeMsg": "Welcome to ",
+    "animatedMsg": "Sign up to enjoy personalized gifts!",
+    "prepareGift": "Prepaare Gift"
+  },
+
+  "login": {
+    "login": "Login",
+    "register": "register",
+    "loginHint": "Login please",
+    "mustLogin": "You must login to add a question"
+  },
+
+  "MenuItems": {
+    "welcomeMsg": "Welcome!..Excited To Serve You",
+    "welcomeDesction": " Welcome! I'm here to assist you with all your needs, from answering   questions to providing insights. Let’s explore new ideas together!",
+    "price": "Prices",
+    "sample": "Portfolio",
+    "contactUs": "Contact Us",
+    "collectPrize": "Collect Your Prize",
+    "menu": "Menu",
+    "news": "Latest News",
+    "priceDescription": "Check our competitive pricing and packages",
+    "sampleDescription": "View our portfolio and work samples",
+    "blog": "Blog",
+    "blogDescription": "Read our latest articles and updates",
+    "contact": "Contact",
+    "contactDescription": "Get in touch with our team",
+    "faq": "Let’s Talk"
+  },
+
+  "Faq": {
+    "pending": "Pending",
+    "answered": "Answered",
+    "rejected": "Rejected",
+    "pagetitle": "Let's Talk",
+    "notPerfect": "We are Not Perfect, But We Working on It.",
+    "addQuestion": "Login to add a question",
+    "welcome": "Welcome ..",
+    "notAnsweredHint": "Section of questions that are pending for the best possible service",
+    "rejectedHint": "Section of rejected questions that violate the site's policies",
+    "answeredHint": "Section of answered questions",
+    "privicy": "Privicy policy",
+    "addFaq": "You ask",
+    "noRejectMsg": "No Rejected Questions",
+    "noAnsweredMsg": "All questions have been answered successfully Waiting for You..",
+    "pageDescription": "Discover the answers to frequently asked questions",
+    "askQuestion": "Ask a question"
+  },
+
+  "contactus": {
+    "pagetitle": "Contact Us",
+    "hint": "Correct information is required to help us respond as quickly as possible, providing the best possible service.",
+
+    "mobile": "Mobile Number",
+    "mobilePlaceHolder": "10-digit mobile number",
+    "mobileValidationError": "Must be at least 10 digits",
+
+    "email": "Email",
+    "emailPlaceHolder": "example@example.com",
+    "emailValidationError": "Invalid email",
+
+    "msg": "Message",
+    "msgplaceHolder": "How can we help you?",
+    "msgValidationError": "The minimum is 10 characters",
+    "sendBtn": "Send .. We are waiting for you",
+    "name": "Name",
+    "Done": "Done",
+    "doneMsg": "Thank you for your message. We will get back to you soon."
+  },
+
+  "page": {
+    "about": {
+      "homePage": {
+        "ensure": "We Ensure",
+        "foryou": "Exclusively yours",
+        "expert": "Our Expertise",
+        "service": "Our Service",
+        "sample": "Sample of Works",
+        "offers": "Hot Offer",
+        "more": "More Info"
+      },
+
+      "willdo": {
+        "waitingForyou": "Waiting for you",
+        "Ui": "Innovative and Engaging Design",
+        "UiDetail": "Our professional team designs innovative and engaging websites that professionally reflect your brand identity.",
+        "Ux": "Excellent User Experience",
+        "UxDetail": "We pay close attention to user experience details to ensure an easy and seamless experience for visitors to your website.",
+        "perfomance": "Fast and High-Performance",
+        "perfomanceTitle": "We guarantee that your website works quickly and efficiently on all devices and screens.",
+        "seo": "Optimized Search Engine (SEO)",
+        "seoTitle": "We use best practices to improve your website's search engine optimization and increase its visibility in search results."
+      },
+      "provide": {
+        "help": "Continuous Technical Support",
+        "helpTitle": "We provide you with continuous technical support to help solve any issues you may encounter and ensure your website continues to work perfectly.",
+        "freeConsultaion": "Free Consultations",
+        "freeConsultaionTitle": "I'm happy to provide free consultations in the field of website design, programming, or mobile applications, and to work with you to find the right solutions for your business."
+      },
+
+      "tcno": {
+        "nextjs": "Next.js",
+        "nextjsTitle": "A powerful framework for building server-rendered React applications, enabling fast and optimized web apps.",
+
+        "nodejs": "Node.js",
+        "nodejsTitle": "A JavaScript runtime that allows for building scalable network applications, perfect for backend services.",
+
+        "react": "React",
+        "reactTitle": "A popular JavaScript library for creating interactive user interfaces with reusable components.",
+
+        "reactnative": "React Native",
+        "reactnativeTitle": "A framework for building mobile applications using React, enabling native apps for iOS and Android.",
+
+        "mongoDB": "MongoDB",
+        "mongoDBTitle": "A NoSQL database that stores data in flexible, JSON-like documents, designed for scalability.",
+
+        "firebase": "Firebase",
+        "firebaseTitle": "A platform by Google for building mobile and web apps, offering tools for real-time databases and authentication.",
+
+        "aws": "AWS",
+        "awsTitle": "A comprehensive cloud computing platform that provides a wide range of services for hosting applications.",
+
+        "prisma": "Prisma",
+        "prismaTitle": "An open-source database toolkit that simplifies database access for Node.js applications."
+      },
+
+      "services": {
+        "mobileApp": "Mobile App Development",
+        "mobileAppTitle": "Custom apps for a seamless user experience.",
+
+        "webApp": "Web App Development",
+        "webAppTitle": "Interactive web apps providing dynamic functionality.",
+
+        "ecommerce": "E-commerce Solutions",
+        "ecommerceTitle": "Online stores that simplify buying and selling.",
+
+        "design": "User Interface Design",
+        "designTitle": "Visually appealing and user-friendly interfaces.",
+
+        "digitalMarketing": "Digital Marketing",
+        "digitalMarketingTitle": "Promoting products through digital channels.",
+
+        "emailMarketing": "Email Marketing",
+        "emailMarketingTitle": "Targeted emails to boost engagement."
+      }
+    }
+  },
+  "pricePage": {
+    "pagetitle": "Service Prices",
+    "hint": "We offer our services at competitive prices",
+    "month": "Monthly",
+    "year": "Annual",
+    "getStarted": "Get Started Now",
+    "mostPopular": "Best Plan",
+    "basicPlan": {
+      "title": "Basic Plan",
+      "feature1": "User Interface Design",
+      "feature2": "Web Application Development",
+      "feature3": "E-commerce Solutions",
+      "feature4": "User Interface Design",
+      "feature5": "User Interface Design"
+    },
+    "standardPlan": {
+      "title": "Standard Plan",
+      "mostPopular": "Best Plan",
+      "feature1": "User Interface Design",
+      "feature2": "Web Application Development",
+      "feature3": "E-commerce Solutions",
+      "feature4": "User Interface Design",
+      "feature5": "User Interface Design"
+    },
+    "premiumPlan": {
+      "title": "Premium Plan",
+      "mostPopular": "Best Plan",
+      "feature1": "User Interface Design",
+      "feature2": "Web Application Development",
+      "feature3": "E-commerce Solutions",
+      "feature4": "User Interface Design",
+      "feature5": "User Interface Design",
+      "feature6": "User Interface Design",
+      "feature7": "User Interface Design"
+    },
+    "freePlan": {
+      "title": "Free Plan"
+    }
+  },
+  "comments": {
+    "commentPlaceholder": "Write your comment",
+    "comment": "comment",
+    "noComments": "No Comment Available yet",
+    "commentAdded": "Comment Added Successfully",
+    
+    "loginToComment": "Login to Comment"
+  },
+  "errors": {
+    "blogcomments": "min 10 characters max 100 characters",
+    "unexpectedError": "An unexpected error occurred while saving the comment."
+  }
+}
