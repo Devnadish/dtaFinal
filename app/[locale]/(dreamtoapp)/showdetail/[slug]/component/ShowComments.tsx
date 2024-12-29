@@ -5,7 +5,6 @@ import BloggerAvatar from "./BloggerAvatar";
 import { Icon } from '@iconify/react';
 import { auth } from "@/auth"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import Link from "next/link"
 import { getTranslations } from "next-intl/server";
 
 interface Comment {
