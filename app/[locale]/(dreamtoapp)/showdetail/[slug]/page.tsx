@@ -7,7 +7,7 @@ import { notFound } from "next/navigation";
 import { headers } from "next/headers";
 import { auth } from "@/auth";
 import { cn } from "@/lib/utils";
-import { generateSEO, generateStructuredData } from '@/lib/seo'
+import { generateSEO, generateStructuredData, siteConfig } from '@/lib/seo'
 
 import { getPost } from "./actions/getPost";
 import { addViewer } from "./actions/addViewer";
@@ -18,25 +18,47 @@ import VieweCounter from "./component/VieweCounter";
 import ShowComments from "./component/ShowComments";
 import StyledBodyText from "@/components/StyledBodyText";
 
-export async function generateMetadata({ params }: { params: { locale: string; slug: string } }) {
-  const post = await getPost(params.slug)
-  if (!post) return {}
 
+import type { Metadata } from 'next';
+
+type Props = {
+  params: {
+    slug: string;
+    locale: string;
+  };
+};
+
+export async function generateMetadata(
+  { params }: Props
+): Promise<Metadata> {
+  // Fetch the post based on the slug
+  const { slug, locale } = await params;
+  const post = await getPost(slug);
+  if (!post) {
+    return {
+      title: 'Dream to App',
+      description: 'Dream To app',
+    };
+  }
+  console.log(post)
+  // Generate and return metadata based on the post
   return generateSEO({
     title: post[0].seo?.metaTitle || post[0].title,
     description: post[0].seo?.metaDescription || post[0].description,
     image: post[0].mainImage,
     keywords: post[0].seo?.keywords || post[0].tags,
-    author: post[0].author?.name,
+    author: post[0].author?.name || siteConfig.author,
     publishedAt: post[0].publishedAt,
     modifiedAt: post[0].seo?.dateModified,
     type: 'article',
     canonical: post[0].seo?.canonicalUrl,
     robots: post[0].seo?.robots,
-    locale: params.locale,
-    slug: `showdetail/${params.slug}`
-  })
+    locale: locale,  // Changed: access locale from params
+    slug: `showdetail/${slug}`,  // Changed: access slug from params
+  });
 }
+   
+ 
 
 // Helper function to get header data
 const getHeaderData = async () => {
@@ -52,9 +74,9 @@ const getHeaderData = async () => {
 export default async function Page({
   params,
 }: {
-  params: { locale: string; slug: string };
+  params: Promise<{ locale: string ,slug: string}>
 }) {
-  const { locale, slug } = params;
+  const { locale, slug } = await params;
   const { ipAddress } = await getHeaderData();
   const session = await auth();
 
@@ -67,6 +89,9 @@ export default async function Page({
 
   if (!post) {
     notFound();
+  }
+  if (location.error) {
+    console.warn('Geolocation failed:', location.error);
   }
 
   const structuredData = generateStructuredData({

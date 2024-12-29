@@ -16,13 +16,13 @@ interface SeoProps {
   slug?: string
 }
 
-const siteConfig = {
+export const siteConfig = {
   title: 'DreamToApp',
-  description: 'Your site description',
+  description: 'Make your dreams come true with our app development services',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://dreamtoapp.com',
   logoUrl: '/logo.png', // Update with your logo path
   twitterHandle: '@yourtwitterhandle',
-  author: 'Your Name'
+  author: 'khalid nadish'
 }
 
 export function generateSEO({
