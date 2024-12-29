@@ -1,20 +1,23 @@
-import { FC, ReactNode } from 'react';
+import { ComponentPropsWithoutRef, ElementType, FC, ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
-interface TypographyProps {
+interface TypographyProps<T extends ElementType> {
   children: ReactNode;
+  as?: T;
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span';
   className?: string;
   locale?: string;
+  props?: ComponentPropsWithoutRef<T>;
 }
 
-const Text: FC<TypographyProps> = ({
+const Text = <T extends ElementType = 'p'>({
   children,
+  as,
   variant = 'p',
   className,
   locale = 'en',
-}) => {
-
+  ...props
+}: TypographyProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof TypographyProps<T>>) => {
   const getFontFamily = () => {
     return locale === 'ar' ? 'tajawalLight' : 'Geist';
   };
@@ -30,7 +33,7 @@ const Text: FC<TypographyProps> = ({
     span: 'text-base',
   };
 
-  const Component = variant;
+  const Component = as || variant;
   const fontFamily = getFontFamily();
 
   return (
@@ -41,6 +44,7 @@ const Text: FC<TypographyProps> = ({
         className
       )}
       dir={locale === 'ar' ? 'rtl' : 'ltr'}
+      {...props}
     >
       {children}
     </Component>

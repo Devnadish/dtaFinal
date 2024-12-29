@@ -7,6 +7,7 @@ import { notFound } from "next/navigation";
 import { headers } from "next/headers";
 import { auth } from "@/auth";
 import { cn } from "@/lib/utils";
+import { generateSEO, generateStructuredData } from '@/lib/seo'
 
 import { getPost } from "./actions/getPost";
 import { addViewer } from "./actions/addViewer";
@@ -15,6 +16,27 @@ import { getGeoLocation } from "@/utils/cloudinary/geoLocation";
 
 import VieweCounter from "./component/VieweCounter";
 import ShowComments from "./component/ShowComments";
+import StyledBodyText from "@/components/StyledBodyText";
+
+export async function generateMetadata({ params }: { params: { locale: string; slug: string } }) {
+  const post = await getPost(params.slug)
+  if (!post) return {}
+
+  return generateSEO({
+    title: post[0].seo?.metaTitle || post[0].title,
+    description: post[0].seo?.metaDescription || post[0].description,
+    image: post[0].mainImage,
+    keywords: post[0].seo?.keywords || post[0].tags,
+    author: post[0].author?.name,
+    publishedAt: post[0].publishedAt,
+    modifiedAt: post[0].seo?.dateModified,
+    type: 'article',
+    canonical: post[0].seo?.canonicalUrl,
+    robots: post[0].seo?.robots,
+    locale: params.locale,
+    slug: `showdetail/${params.slug}`
+  })
+}
 
 // Helper function to get header data
 const getHeaderData = async () => {
@@ -30,9 +52,9 @@ const getHeaderData = async () => {
 export default async function Page({
   params,
 }: {
-  params: Promise<{ locale: string; slug: string }>;
+  params: { locale: string; slug: string };
 }) {
-  const { locale, slug } = await params;
+  const { locale, slug } = params;
   const { ipAddress } = await getHeaderData();
   const session = await auth();
 
@@ -46,6 +68,18 @@ export default async function Page({
   if (!post) {
     notFound();
   }
+
+  const structuredData = generateStructuredData({
+    type: 'article',
+    title: post[0].title,
+    description: post[0].description,
+    image: post[0].mainImage,
+    author: post[0].author?.name,
+    publishedAt: post[0].publishedAt,
+    modifiedAt: post[0].seo?.dateModified,
+    locale: locale,
+    slug: `showdetail/${slug}`
+  });
 
   // Prepare viewer data
   const viewerData = {
@@ -62,67 +96,69 @@ export default async function Page({
   const { counter } = await addViewer(viewerData);
 
   return (
-    <article className="min-h-screen w-full mt-1 relative animate-in fade-in duration-500">
-      {/* Hero Section */}
-      <div className="relative w-full pb-[31.58%] mb-8 group">
-        <Image
-          src={urlFor(post[0].mainImage).url() || fallback}
-          alt={post[0].title}
-          fill
-          priority
-          className="object-cover rounded-lg shadow-lg transition-transform duration-300 group-hover:scale-[1.01]"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent rounded-lg" />
-        <VieweCounter counter={counter} commentlength={comments.length} />
-      </div>
-
-      {/* Content Section */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Title */}
-        <h1 className="text-4xl font-bold tracking-tight text-primary mb-6 animate-in slide-in-from-bottom duration-500">
-          {post[0].title}
-        </h1>
-
-        {/* Tags */}
-        {post.categories && (
-          <div className="flex flex-wrap gap-2 mb-8">
-            {post[0].categories.map((category: any) => (
-              <span
-                key={category._id}
-                className="px-3 py-1 text-sm rounded-full bg-primary/10 text-primary"
-              >
-                {category.title}
-              </span>
-            ))}
-          </div>
-        )}
-
-        {/* Main Content */}
-        <div className="prose prose-lg dark:prose-invert max-w-none animate-in slide-in-from-bottom duration-500 delay-150">
-          <PortableText
-            value={post[0].body}
-            components={{
-              block: {
-                normal: ({ children }) => <Text className="mb-4">{children}</Text>,
-              },
-            }}
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <article className="min-h-screen w-full mt-1 relative animate-in fade-in duration-500" itemScope itemType="https://schema.org/Article">
+        {/* Hero Section */}
+        <div className="relative w-full pb-[31.58%] mb-8 group">
+          <Image
+            src={urlFor(post[0].mainImage).url() || fallback}
+            alt={post[0].title}
+            fill
+            priority
+            itemProp="image"
+            className="object-cover rounded-lg shadow-lg transition-transform duration-300 group-hover:scale-[1.01]"
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent rounded-lg" />
+          <VieweCounter counter={counter} commentlength={comments.length} />
         </div>
 
-        {/* Comments Section */}
-        <div className="mt-16 animate-in slide-in-from-bottom duration-500 delay-300">
-          <h2 className="text-2xl font-semibold mb-8">Comments</h2>
+        {/* Content Section */}
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Title */}
+          <Text variant="h1" locale={locale} itemProp="headline" className="text-4xl font-bold tracking-tight text-primary mb-6 animate-in slide-in-from-bottom duration-500">
+            {post[0].title}
+          </Text>
+
+          {/* Meta Information */}
+          <div className="flex items-center text-sm text-muted-foreground mb-4">
+            <time itemProp="datePublished" dateTime={post[0].publishedAt}>
+              {new Date(post[0].publishedAt).toLocaleDateString()}
+            </time>
+            {post[0].author?.name && (
+              <>
+                <span className="mx-2">•</span>
+                <span itemProp="author" itemScope itemType="https://schema.org/Person">
+                  <span itemProp="name">{post[0].author.name}</span>
+                </span>
+              </>
+            )}
+          </div>
+
+          {/* Tags */}
+          {post[0].categories && (
+            <div className="flex flex-wrap gap-2 mb-8">
+              {post[0].categories.map((category: any) => (
+                <Text variant="h1" locale={locale} key={category._id} className="px-3 py-1 text-sm rounded-full bg-primary/10 text-primary">
+                  {category.title}
+                </Text>
+              ))}
+            </div>
+          )}
+
+          {/* Main Content */}
+          <div className="prose prose-lg dark:prose-invert max-w-none animate-in slide-in-from-bottom duration-500 delay-150">
+          <StyledBodyText post={post[0]} locale={locale}/>
+           
+          </div>
+
+          {/* Comments Section */}
           <ShowComments initialComments={comments} blogSlug={slug} />
         </div>
-      </div>
-
-      {/* Scroll Progress Indicator */}
-      <div className="fixed top-0 left-0 w-full h-1 bg-primary/20">
-        <div
-          className="h-full bg-primary transition-all duration-150"
-          style={{ width: `var(--scroll-progress, 0%)` }}
-        />
-      </div>
-    </article>
+      </article>
+    </>
   );
 }
