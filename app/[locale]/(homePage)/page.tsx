@@ -44,19 +44,9 @@ export default async function Home({
       title: t("Expert"),
       icon: <Icon icon="mdi:arm-flex" width={38} height={38} />, // Updated icon
     },
-    // {
-    //   data: support,
-    //   title: t("Support"),
-    //   icon: <Icon icon="ix:support" width={38} height={38} />, // Updated icon
-    // },
-    // {
-    //   data: free,
-    //   title: t("free"),
-    //   icon: <Icon icon="bx:gift" width={38} height={38} />, // Updated icon
-    // },
+    
   ];
 
-  console.log("testing")
   return (
     <main className="flex flex-col items-center justify-center min-h-screen gap-16 font-[family-name:var(--font-geist-sans)]">
       {/* <AnimatedModal /> */}

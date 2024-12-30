@@ -30,7 +30,6 @@ export function ImageQuestion() {
 
     const handleUpload = () => {
         if (selectedImage) {
-            console.log('Uploading:', selectedImage);
             // Reset the state after upload
             setSelectedImage(null);
             setImagePreview(null);

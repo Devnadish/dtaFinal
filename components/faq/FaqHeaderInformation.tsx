@@ -1,5 +1,5 @@
 import { FaqItem } from "@/type/types";
-import { dateToSting } from "@/lib/nadish";
+import { dateToString } from "@/lib/nadish";
 import { Icon } from "@iconify/react";
 
 // New ViewerCountDisplay component
@@ -20,7 +20,7 @@ const DateDisplay = ({
 }) => (
   <div className="text-[10px]   text-muted-foreground flex items-center gap-2 w-fit ">
     <Icon icon="lucide:edit" className="w-3 h-3 " />
-    {dateToSting(updatedAt.toString())}
+    {dateToString(updatedAt.toString())}
   </div>
   // </div>
 );

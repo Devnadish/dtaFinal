@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { dateToSting } from "@/lib/nadish"
+import { dateToString } from "@/lib/nadish"
 import AddComment from "./AddComment"
 import BloggerAvatar from "./BloggerAvatar";
 import { Icon } from '@iconify/react';
@@ -76,7 +76,7 @@ export default async function ShowComments({ initialComments, blogSlug }: Commen
                             <div className="flex flex-col">
                               <span className="text-sm font-medium">{comment.userEmail.split('@')[0]}</span>
                               <span className="text-xs text-muted-foreground">
-                                {dateToSting(commentDate)}
+                                {dateToString(commentDate)}
                               </span>
                             </div>
                           </div>

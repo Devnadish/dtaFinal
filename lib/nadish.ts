@@ -19,7 +19,7 @@ export const NEWSLUG = (slug: string, lang: string): string => {
   return newSlug;
 };
 
-export function dateToSting(dateString: string): string {
+export function dateToString(dateString: string): string {
   // Convert the date string to a Date object
   const date = new Date(dateString);
 

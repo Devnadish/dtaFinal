@@ -20,7 +20,6 @@ export default async function Page({ params, searchParams }: propType) {
 const galleryPath = "dreamToApp/workSample/" + prefix  ;
 
   const gallery = await getImagesFromCloudinary(galleryPath);
-    console.log({gallery});
 
   if (!gallery) {
     return   <Text variant="h1" locale={locale} >{t("nosample")}</Text>;

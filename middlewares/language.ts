@@ -5,7 +5,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { CustomMiddleware } from "./chain";
 
 export function languageMiddleware(middleware: CustomMiddleware) {
-  console.log("-------------language middle ware------------- ");
 
   const defaultLocale = "ar"; // Declare and initialize defaultLocale
 

@@ -75,7 +75,6 @@ async function page({ params }: { params: Promise<{ locale: string }> }) {
   const locale = (await params).locale;
   const t = await getTranslations("workSample");
   const data = await collectWorkCategoryData(locale);
-  console.log({data});
   
 
   return (

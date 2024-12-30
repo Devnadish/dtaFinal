@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 
-import { dateToSting } from "@/lib/nadish";
+import { dateToString } from "@/lib/nadish";
 
 const CreateAndUpdateDate = ({
   createdAt,
@@ -12,12 +12,12 @@ const CreateAndUpdateDate = ({
   <div className="flex items-center  flex-row  gap-2 justify-end w-fit ">
     <div className="text-[10px]   text-muted-foreground flex items-center gap-2 w-fit ">
        <Icon icon="lucide:edit" className="w-3 h-3 " />
-      {dateToSting(updatedAt?.toString() ?? "")}
+      {dateToString(updatedAt?.toString() ?? "")}
     </div>
     {createdAt && (
       <div className="text-[10px]   text-muted-foreground flex items-center gap-2  ">
         <Icon icon="lucide:edit" className="w-3 h-3 " />
-        {dateToSting(createdAt.toString())}
+        {dateToString(createdAt.toString())}
       </div>
     )}
   </div>

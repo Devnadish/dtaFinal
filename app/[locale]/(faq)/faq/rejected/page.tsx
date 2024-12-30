@@ -1,5 +1,5 @@
 // app/[locale]/faq/rejected/page.tsx
-import { dateToSting } from "@/lib/nadish";
+import { dateToString } from "@/lib/nadish";
 import { Card } from "@/components/ui/card";
 import { GetRejectedFaq } from "@/actions/faq/faq";
 import { getTranslations } from "next-intl/server";

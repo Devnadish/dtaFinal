@@ -24,4 +24,8 @@ export interface SectionViewProps {
   icon: React.ReactNode;
   locale: string
 }
+export interface blogSectionViewProps {
+  posts: Post[];
+  locale: string
+}
 

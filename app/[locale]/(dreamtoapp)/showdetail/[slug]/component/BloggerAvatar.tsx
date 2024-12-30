@@ -10,7 +10,6 @@ interface avatarPro {
 
 function BloggerAvatar({ imageUrl, userEmail }: avatarPro) {
     const firstChar = userEmail.charAt(0).toUpperCase();
-    console.log(imageUrl)
 
     return (
         <Avatar className='w-6 h-6'>

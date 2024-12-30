@@ -40,7 +40,6 @@ export async function generateMetadata(
       description: 'Dream To app',
     };
   }
-  console.log(post)
   // Generate and return metadata based on the post
   return generateSEO({
     title: post[0].seo?.metaTitle || post[0].title,

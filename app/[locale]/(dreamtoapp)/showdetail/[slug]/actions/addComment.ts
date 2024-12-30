@@ -13,7 +13,6 @@ export async function newComment(
   // Validate the comment using the schema
 
   const locale = await getLocale();
-  console.log(locale);
   const t = await getTranslations({
     namespace: "errors",
     locale,
@@ -45,7 +44,6 @@ export async function newComment(
   const userImage = user.user?.image; // Replace with actual user image retrieval logic
   const blogSlug = formData.get("blogSlug") as string; // Assuming blogSlug is also part of the form data
 
-  console.log({ userEmail, userImage });
   const CMT: commentFormData = {
     comment: commentValidation.data.comment, // Use validated comment
     userEmail: userEmail as string,

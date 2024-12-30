@@ -54,7 +54,6 @@ export default function FooterBar() {
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
     setShowLangSwitcher(pathname.includes("showdetail"));
-    console.log(showLangSwitcher)
   };
 
 

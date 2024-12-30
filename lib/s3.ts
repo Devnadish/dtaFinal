@@ -29,7 +29,6 @@ export async function uploadToS3(
         ContentType: file.type,
       })
     );
-    console.log("Upload successful:", response);
   } catch (error) {
     console.error("Upload failed:", error);
     throw error;
