@@ -375,6 +375,14 @@
     },
     "freePlan": {
       "title": "Free Plan"
+    },
+    "dialog": {
+      "title": "Get Started",
+      "description": "Please provide your name and phone number so we can contact you.",
+      "namePlaceholder": "Your Name",
+      "phonePlaceholder": "Your Phone Number",
+      "submitButton": "Submit",
+      "successMessage": "Thank you! We will contact you shortly."
     }
   },
   "comments": {
@@ -387,6 +395,13 @@
   },
   "errors": {
     "blogcomments": "min 10 characters max 100 characters",
-    "unexpectedError": "An unexpected error occurred while saving the comment."
+    "unexpectedError": "An unexpected error occurred while saving the comment.",
+    "nameRequired": "Name is required and must be at least 2 characters.",
+    "phoneRequired": "Phone number is required and must be at least 10 digits.",
+    "phoneTooLong": "Phone number must not exceed 15 digits.",
+    "serviceTypeRequired": "Service type is required."
+  },
+  "messages": {
+    "packageRequestAdded": "Your package request has been submitted successfully! will Contact you with 48 hours"
   }
 }

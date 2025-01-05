@@ -3,7 +3,7 @@ import Text from "@/components/Text";
 import { urlFor } from "@/lib/imageUrl";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { headers } from "next/headers";
+
 import { auth } from "@/auth";
 import { generateSEO, generateStructuredData, siteConfig } from '@/lib/seo';
 import StyledBodyText from "@/components/StyledBodyText";
@@ -14,6 +14,7 @@ import { addViewer } from "./actions/addViewer";
 import VieweCounter from "./component/VieweCounter";
 import ShowComments from "./component/ShowComments";
 import { getIPUserInformation } from "@/app/utils/ipinfo";
+import { getHeaderData } from "@/app/utils/getHeaderData";
 
 type Params = {
   slug: string;
@@ -49,17 +50,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
 }
 
-const getHeaderData = async () => {
-  const headersList = await headers();
-  const ipAddress = (
-    headersList.get('x-forwarded-for') ||
-    headersList.get('x-real-ip') ||
-    (process.env.NODE_ENV === 'development' ? "168.149.37.35" : "")
-  )
-    .split(',')[0]
-    .trim();
-  return { ipAddress };
-};
+
 
 export default async function Page({ params }: { params: Promise<{ locale: string, slug: string }> }) {
   const { locale, slug } = await params;
@@ -108,8 +99,8 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
       />
       <article className="min-h-screen w-full mt-1 relative animate-in fade-in duration-500" itemScope itemType="https://schema.org/Article">
         <div className="relative w-full pb-[31.58%] mb-8 group">
-        <Image
-           src={urlFor(post.mainImage ?? '').url()}
+          <Image
+            src={urlFor(post.mainImage ?? '').url()}
             alt={post.title ?? ''}
             fill
             priority
@@ -125,7 +116,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
           </Text>
           <div className="flex items-center text-sm text-muted-foreground mb-4">
             <time itemProp="datePublished" dateTime={post.publishedAt?.toString()}>
-            {new Date(post.publishedAt || new Date()).toLocaleDateString()}
+              {new Date(post.publishedAt || new Date()).toLocaleDateString()}
             </time>
             {/* {post.author?.name && (
               <>
@@ -146,7 +137,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
             </div>
           )}
           <div className="prose prose-lg dark:prose-invert max-w-none animate-in slide-in-from-bottom duration-500 delay-150">
-            <StyledBodyText post={post } locale={locale} />
+            <StyledBodyText post={post} locale={locale} />
           </div>
           <ShowComments initialComments={comments} blogSlug={slug} />
         </div>

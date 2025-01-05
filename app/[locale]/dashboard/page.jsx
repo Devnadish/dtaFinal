@@ -1,7 +1,9 @@
 import React from "react";
 
 function page() {
-  return <div>dashboard</div>;
+  return (
+    <div className="flex items-center justify-center    ">dashddboard</div>
+  );
 }
 
 export default page;

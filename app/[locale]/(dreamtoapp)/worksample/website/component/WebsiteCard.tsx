@@ -18,7 +18,7 @@ const WebsiteCard: React.FC<Pick<Website, "name" | "link" | "image">> = ({
     console.log(link)
     return (
         <motion.div
-            className="relative bg-white rounded-lg overflow-hidden shadow-md"
+            className="relative bg-transparent rounded-lg overflow-hidden shadow-md"
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
         >

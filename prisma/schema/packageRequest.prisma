@@ -1,0 +1,28 @@
+model PackageRequest {
+  id            String       @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  phone         String
+  request       String
+  ip            String?
+  country       String?      // Country of the visitor
+  city          String?      // City of the visitor
+  latitude      String?      // Latitude of the visitor's location
+  longitude     String?      // Longitude of the visitor's location
+  followUps     FollowUp[]   // One-to-many relationship with FollowUp
+  createdAt     DateTime     @default(now()) // Timestamp when the record was created
+  updatedAt     DateTime     @updatedAt // Timestamp when the record was last updated
+}
+
+model FollowUp {
+  id              String      @id @default(auto()) @map("_id") @db.ObjectId
+  packageRequestId String     @db.ObjectId // Foreign key to PackageRequest
+  packageRequest  PackageRequest @relation(fields: [packageRequestId], references: [id]) // Relation to PackageRequest
+  status          String      @default("Pending") // Status of follow-up (e.g., Pending, Contacted, Completed)
+  followUpDate    DateTime?   // Date for follow-up
+  notes           String?     // Notes related to the follow-up
+  createdAt       DateTime    @default(now()) // Timestamp when the follow-up was created
+  updatedAt       DateTime    @updatedAt // Timestamp when the follow-up was last updated
+
+  @@index([packageRequestId]) // Index for faster queries
+  @@index([followUpDate])     // Index for faster queries
+}

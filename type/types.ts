@@ -96,6 +96,12 @@ export interface commentFormData {
   userImage: string;
 }
 
+export interface requestFormData {
+  name: string;
+  phone: string;
+  userImage: string;
+}
+
 export interface ActionResponse {
   success: boolean;
   message: string;
