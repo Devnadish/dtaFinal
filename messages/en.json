@@ -134,7 +134,9 @@
     "submit": "Submit Question",
     "questionAdded": "Question added successfully",
     "errorOccurred": "An error occurred",
-    "askQuestion": "Ask a Question"
+    "askQuestion": "Ask a Question",
+    "images": "Add images",
+    "voice": "add voice"
   },
   "workSample": {
     "pageTitle": "Some of Our Work Samples",
@@ -380,7 +382,7 @@
     "comment": "comment",
     "noComments": "No Comment Available yet",
     "commentAdded": "Comment Added Successfully",
-    
+
     "loginToComment": "Login to Comment"
   },
   "errors": {

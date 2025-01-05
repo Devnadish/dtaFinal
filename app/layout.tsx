@@ -21,6 +21,7 @@ import MainMenu from "@/components/headerAndFotter/header/MainMenu";
 import FooterBar from "@/components/headerAndFotter/fotter/FooterBar";
 import BodyContainer from "@/components/Container";
 import { Directions } from "@/constant/enums";
+import { ViewTransitions } from 'next-view-transitions'
 
 export async function generateStaticParams() {
   return routing.locales.map(locale => ({ locale }));
@@ -55,19 +56,21 @@ export default async function RootLayout({
   const messages = await getMessages();
   const locale = await getLocale()
   return (
-    <html lang={locale} dir={locale === "en" ? Directions.LTR : Directions.RTL} suppressHydrationWarning>
-      <body
-        className={`${outfit.variable} ${geistMono.variable} ${amiri.variable} ${cairo.variable} ${tajawal.variable} ${tajawalLight.variable} antialiased`}
-      >
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <SessionProvider>
-            <ThemeProvider>
-              {children}
-            </ThemeProvider>
-          </SessionProvider>
-        </NextIntlClientProvider>
-        <Toaster />
-      </body>
-    </html>
+    <ViewTransitions>
+      <html lang={locale} dir={locale === "en" ? Directions.LTR : Directions.RTL} suppressHydrationWarning>
+        <body
+          className={`${outfit.variable} ${geistMono.variable} ${amiri.variable} ${cairo.variable} ${tajawal.variable} ${tajawalLight.variable} antialiased`}
+        >
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            <SessionProvider>
+              <ThemeProvider>
+                {children}
+              </ThemeProvider>
+            </SessionProvider>
+          </NextIntlClientProvider>
+          <Toaster />
+        </body>
+      </html>
+    </ViewTransitions>
   );
 }

@@ -1,6 +1,5 @@
-import { QIcon, ReplayIcon } from "../icons/QIcon";
 import FaqHeaderInformation from "./FaqHeaderInformation";
-
+import { Icon } from "@iconify/react";
 import { Card, CardContent } from "@/components/ui/card";
 const AnsweredQuestions = ({
   answeredQuestions,
@@ -13,10 +12,9 @@ const AnsweredQuestions = ({
         <CardContent className="p-2 w-full">
           <FaqHeaderInformation item={item} />
           <div className=" text-sm mt-1 font-semibold text-foreground w-full flex items-center justify-start gap-2">
-            <QIcon
-              width={20}
-              height={20}
-              className="text-primary rounded-md p-[1px]"
+            <Icon
+              icon="hugeicons:eye"
+              className="w-4 h-4 transition-transform  duration-300 hover:scale-110"
             />
             {item.question}
           </div>
@@ -53,10 +51,9 @@ const ShowTags = ({ item }: { item: any }) => {
 const AnswerItem = ({ answer }: { answer: any }) => (
   <div className="flex flex-row justify-end w-full">
     <div className="text-sm  text-foreground/70 w-full flex items-center justify-start gap-2 p-2 mr-2 md:mr-8">
-      <ReplayIcon
-        width={18}
-        height={20}
-        className=" rounded-md p-[1px] text-greenColor"
+      <Icon
+        icon="fluent:comment-20-filled"
+        className="w-4 h-4 transition-transform duration-300 hover:scale-110"
       />
       {answer.content}
     </div>

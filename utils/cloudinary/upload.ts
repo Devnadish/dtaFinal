@@ -8,7 +8,7 @@ cloudinary.config({
 });
 
 // Define types
-export type UploadFile = File | Buffer | string;
+export type UploadFile = globalThis.File | Buffer | string;
 export type ResourceType = 'image' | 'video' | 'auto';
 
 export interface UploadProgress {
@@ -73,7 +73,7 @@ export const uploadToCloudinary = async (
     } else if (typeof file === 'string') {
       // Handle URL string uploads
       uploadResult = await cloudinary.uploader.upload(file, uploadOptions);
-    } else {
+    } else if (file instanceof File) {
       // Handle File objects by converting to Buffer
       const arrayBuffer = await file.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
@@ -89,29 +89,32 @@ export const uploadToCloudinary = async (
         
         // Report progress if callback is provided
         if (options.onProgress) {
-          const totalSize = file.size;
-          let uploadedSize = 0;
+          let loaded = 0;
+          const total = buffer.length;
           
-          uploadStream.on('data', (chunk) => {
-            uploadedSize += chunk.length;
-            options.onProgress?.({
-              loaded: uploadedSize,
-              total: totalSize,
-              progress: (uploadedSize / totalSize) * 100
+          const chunk_size = 64 * 1024; // 64KB chunks
+          for (let i = 0; i < buffer.length; i += chunk_size) {
+            const chunk = buffer.slice(i, i + chunk_size);
+            loaded += chunk.length;
+            uploadStream.write(chunk);
+            
+            options.onProgress({
+              loaded,
+              total,
+              progress: (loaded / total) * 100
             });
-          });
+          }
+        } else {
+          // If no progress callback, upload the entire buffer at once
+          uploadStream.write(buffer);
         }
         
-        uploadStream.end(buffer);
+        uploadStream.end();
       });
+    } else {
+      throw new Error('Invalid file type provided');
     }
 
-    // Validate upload result
-    if (!uploadResult || !uploadResult.secure_url) {
-      throw new Error('Upload failed: No secure URL received from Cloudinary');
-    }
-
-    // Return standardized result
     return {
       secure_url: uploadResult.secure_url,
       public_id: uploadResult.public_id,
@@ -121,10 +124,8 @@ export const uploadToCloudinary = async (
       height: uploadResult.height,
       duration: uploadResult.duration,
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error uploading to Cloudinary:', error);
-    throw new Error(
-      `Failed to upload file to Cloudinary: ${error.message || 'Unknown error'}`
-    );
+    throw error;
   }
 };

@@ -1,0 +1,310 @@
+// pages/showblog/[slug]/page.tsx
+import Text from "@/components/Text";
+import { urlFor } from "@/lib/imageUrl";
+import Image from "next/image";
+import { notFound } from "next/navigation";
+import { headers } from "next/headers";
+import { auth } from "@/auth";
+import { generateSEO, generateStructuredData, siteConfig } from '@/lib/seo';
+import StyledBodyText from "@/components/StyledBodyText";
+import type { Metadata } from 'next';
+import { getPost } from "./actions/getPost";
+import { getAllcomments } from "./actions/getAllcomments";
+import { addViewer } from "./actions/addViewer";
+import VieweCounter from "./component/VieweCounter";
+import ShowComments from "./component/ShowComments";
+import { getIPUserInformation } from "@/app/utils/ipinfo";
+
+type Params = {
+  slug: string;
+  locale: string;
+};
+
+type Props = {
+  params: Promise<Params>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug, locale } = await params;
+  const post = await getPost(slug);
+  if (!post) {
+    return {
+      title: 'Dream to App',
+      description: 'Dream To app',
+    };
+  }
+  return generateSEO({
+    title: post.seo?.metaTitle || post.title,
+    description: post.seo?.metaDescription || post.description,
+    image: post.mainImage,
+    keywords: post.seo?.keywords || post.tags,
+    author: post.author?.name || siteConfig.author,
+    publishedAt: post.publishedAt,
+    modifiedAt: post.seo?.dateModified,
+    type: 'article',
+    canonical: post.seo?.canonicalUrl,
+    robots: post.seo?.robots,
+    locale,
+    slug: `showblog/${slug}`,
+  });
+}
+
+const getHeaderData = async () => {
+  const headersList = await headers();
+  const ipAddress = (
+    headersList.get('x-forwarded-for') ||
+    headersList.get('x-real-ip') ||
+    (process.env.NODE_ENV === 'development' ? "168.149.37.35" : "")
+  )
+    .split(',')[0]
+    .trim();
+  return { ipAddress };
+};
+
+export default async function Page({ params }: { params: Params }) {
+  const { locale, slug } = params;
+  const { ipAddress } = await getHeaderData();
+  const userLocation = await getIPUserInformation(ipAddress);
+  const session = await auth();
+
+  const [post, comments] = await Promise.all([
+    getPost(slug),
+    getAllcomments(slug),
+  ]);
+
+  if (!post) {
+    notFound();
+  }
+
+  const structuredData = generateStructuredData({
+    type: 'article',
+    title: post.title,
+    description: post.description,
+    image: post.mainImage,
+    author: post.author?.name,
+    publishedAt: post.publishedAt,
+    modifiedAt: post.seo?.dateModified,
+    locale,
+    slug: `showblog/${slug}`,
+  });
+
+  const viewerData = {
+    slug,
+    city: userLocation.city,
+    country_name: userLocation.country,
+    ip: ipAddress,
+    userEmail: session?.user?.email || 'visitor',
+    latitude: userLocation.latitude,
+    longitude: userLocation.longitude,
+  };
+
+  const { counter } = await addViewer(viewerData);
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <article className="min-h-screen w-full mt-1 relative animate-in fade-in duration-500" itemScope itemType="https://schema.org/Article">
+        <div className="relative w-full pb-[31.58%] mb-8 group">
+          <Image
+            src={urlFor(post.mainImage).url() || ''}
+            alt={post.title}
+            fill
+            priority
+            itemProp="image"
+            className="object-cover rounded-lg shadow-lg transition-transform duration-300 group-hover:scale-[1.01]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent rounded-lg" />
+          <VieweCounter counter={counter} commentlength={comments.length} />
+        </div>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Text variant="h1" locale={locale} itemProp="headline" className="text-4xl font-bold tracking-tight text-primary mb-6 animate-in slide-in-from-bottom duration-500">
+            {post.title}
+          </Text>
+          <div className="flex items-center text-sm text-muted-foreground mb-4">
+            <time itemProp="datePublished" dateTime={post.publishedAt.toString()}>
+              {new Date(post.publishedAt).toLocaleDateString()}
+            </time>
+            {post.author?.name && (
+              <>
+                <span className="mx-2">•</span>
+                <span itemProp="author" itemScope itemType="https://schema.org/Person">
+                  <span itemProp="name">{post.author.name}</span>
+                </span>
+              </>
+            )}
+          </div>
+          {post.categories && (
+            <div className="flex flex-wrap gap-2 mb-8">
+              {post.categories.map((category) => (
+                <Text variant="h1" locale={locale} key={category.title} className="px-3 py-1 text-sm rounded-full bg-primary/10 text-primary">
+                  {category.title}
+                </Text>
+              ))}
+            </div>
+          )}
+          <div className="prose prose-lg dark:prose-invert max-w-none animate-in slide-in-from-bottom duration-500 delay-150">
+            <StyledBodyText post={post} locale={locale} />
+          </div>
+          <ShowComments initialComments={comments} blogSlug={slug} />
+        </div>
+      </article>
+    </>
+  );
+}
+
+import { Metadata } from 'next'
+import { urlFor } from "@/lib/imageUrl"
+
+interface SeoProps {
+  title: string
+  description?: string
+  image?: any // Sanity image type
+  keywords?: string[]
+  author?: string
+  publishedAt?: string
+  modifiedAt?: string
+  type?: 'website' | 'article'
+  canonical?: string
+  robots?: string
+  locale: string
+  slug?: string
+}
+
+export const siteConfig = {
+  title: 'DreamToApp',
+  description: 'Make your dreams come true with our app development services',
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://dreamto.app',
+  logoUrl: '/logo.png', // Update with your logo path
+  twitterHandle: '@yourtwitterhandle',
+  author: 'khalid nadish'
+}
+
+export function generateSEO({
+  title,
+  description,
+  image,
+  keywords,
+  author = siteConfig.author,
+  publishedAt,
+  modifiedAt,
+  type = 'website',
+  canonical,
+  robots = 'index,follow',
+  locale,
+  slug
+}: SeoProps): Metadata {
+  
+  const ogImage = image ? urlFor(image).width(1200).height(630).url() : `${siteConfig.url}/og-image.jpg`
+  const fullUrl = slug ? `${siteConfig.url}/${locale}/${slug}` : siteConfig.url
+
+  return {
+    title: `${title} | ${siteConfig.title}`,
+    description,
+    keywords,
+    authors: author ? [{ name: author }] : undefined,
+    openGraph: {
+      title: `${title} | ${siteConfig.title}`,
+      description,
+      url: fullUrl,
+      siteName: siteConfig.title,
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+      locale,
+      type,
+      ...(publishedAt && { publishedTime: publishedAt }),
+      ...(modifiedAt && { modifiedTime: modifiedAt }),
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [ogImage],
+      creator: siteConfig.twitterHandle,
+    },
+    alternates: {
+      canonical: canonical || fullUrl,
+    },
+    robots,
+  }
+}
+
+export function generateStructuredData({
+  type = 'article',
+  title,
+  description,
+  image,
+  author,
+  publishedAt,
+  modifiedAt,
+  locale,
+  slug,
+}: SeoProps & { type?: string }) {
+  const fullUrl = slug ? `${siteConfig.url}/${locale}/${slug}` : siteConfig.url
+  const imageUrl = image ? urlFor(image).url() : `${siteConfig.url}/og-image.jpg`
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': type,
+    headline: title,
+    description,
+    image: imageUrl,
+    datePublished: publishedAt,
+    dateModified: modifiedAt || publishedAt,
+    author: author ? {
+      '@type': 'Person',
+      name: author,
+    } : undefined,
+    publisher: {
+      '@type': 'Organization',
+      name: siteConfig.title,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${siteConfig.url}${siteConfig.logoUrl}`,
+      },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': fullUrl,
+    },
+  }
+}
+
+// actions/getPost.ts
+import { client } from "@/sanity/lib/client";
+import type { Post } from '@/sanity.types';
+
+const fetchData = async (
+  query: string,
+  params: { [key: string]: any } = {}
+): Promise<Post[]> => {
+  try {
+    const posts = await client.fetch(query, params);
+    return posts || [];
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+export const getPost = async (slug: string): Promise<Post | null> => {
+  try {
+    const decodeSlug = decodeURIComponent(slug);
+    console.log({decodeSlug})
+    const query = `*[_type=="post" && slug.current == '${decodeSlug}']`;
+    const params = { slug: decodeSlug };
+    const post = await fetchData(query, params);
+    return post.length > 0 ? post[0] : null;
+  } catch (error) {
+    console.error('Error fetching post:', error);
+    return null;
+  }
+};

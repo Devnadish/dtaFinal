@@ -13,6 +13,7 @@ export enum homeSections {
   TECHNOLOGY = "technology",
   SUPPORT = "support",
   FREE = "free",
+  BLOG = "blog",
 }
 
 export enum Routes {

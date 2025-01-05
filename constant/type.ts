@@ -1,4 +1,4 @@
-import { Post } from "@/sanity.types";
+import { Post } from "@/tmpl/sanity.types";
 
 export interface propType {
   params: Promise<{ slug: string; category: string }>;
@@ -22,10 +22,9 @@ export interface SectionViewProps {
   posts: Post[];
   title: string;
   icon: React.ReactNode;
-  locale: string
+  locale: string;
 }
 export interface blogSectionViewProps {
   posts: Post[];
-  locale: string
+  locale: string;
 }
-

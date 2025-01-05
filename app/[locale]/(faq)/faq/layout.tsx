@@ -2,7 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { auth } from "@/auth";
 import React from "react";
 import { FaqCounter } from "@/actions/faq/faq";
-import ShowQuastionType from "../(faq)/faq/_component/ShowQuastionType";
+import ShowQuastionType from "./_component/ShowQuastionType";
 
 interface LinkTitle {
   pending: string;
@@ -29,14 +29,14 @@ const FAQSection = async ({
   };
 
   return (
-      
-        <ShowQuastionType
-          answeredQuestions={answered}
-          pendingQuestions={pending}
-          rejectedQuestions={rejected}
-          msgHint={t("notPerfect")}
-          linkTitle={linkTitle}
-        />
+
+    <ShowQuastionType
+      answeredQuestions={answered}
+      pendingQuestions={pending}
+      rejectedQuestions={rejected}
+      msgHint={t("notPerfect")}
+      linkTitle={linkTitle}
+    />
   );
 };
 

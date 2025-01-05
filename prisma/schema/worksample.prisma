@@ -1,0 +1,8 @@
+model Worksamples {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  link     String
+  image    String
+  type     String @default("website")
+  createdAt DateTime @default(now())
+}

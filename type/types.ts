@@ -1,5 +1,27 @@
+// types.ts
 import { faq } from "@prisma/client";
 import { SVGProps } from "react";
+import { Post as OriginalPost } from "@/tmpl/sanity.types";
+
+// Blog Types
+export interface Blog {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  mainImage: { url: string };
+  description: string;
+  categories: string[];
+  publishedAt: Date;
+  section: string;
+  language: string;
+}
+
+export interface EnrichedBlog extends Blog {
+  viewsCount: number;
+  commentsCount: number;
+}
+
+// FAQ Types
 export interface Answer {
   id: string;
   content: string;
@@ -29,11 +51,7 @@ export interface FaqItem extends faq {
   tagged?: Tag[] | undefined;
 }
 
-export interface Tag {
-  id: string;
-  tag: string;
-}
-
+// Filter Types
 export interface FilterOptionsProps {
   tags: {
     tag: string;
@@ -51,6 +69,7 @@ export interface FilterOptionsProps {
   setSorting: React.Dispatch<React.SetStateAction<string>>;
 }
 
+// User Types
 export interface User {
   id: string;
   name: string;
@@ -59,12 +78,6 @@ export interface User {
   image: string;
   initailBalance: number;
   usedBalance: number;
-}
-
-export interface IconProps extends SVGProps<SVGSVGElement> {
-  width?: number;
-  height?: number;
-  className?: string;
 }
 
 export interface UserInformation {
@@ -76,6 +89,7 @@ export interface UserInformation {
   [key: string]: any;
 }
 
+// Comment Types
 export interface commentFormData {
   comment: string;
   userEmail: string;
@@ -88,4 +102,17 @@ export interface ActionResponse {
   errors?: {
     [K in keyof commentFormData]?: string[];
   };
+}
+
+// Icon Types
+export interface IconProps extends SVGProps<SVGSVGElement> {
+  width?: number;
+  height?: number;
+  className?: string;
+}
+
+// Post Types
+export interface ExtendedPost extends OriginalPost {
+  viewsCount: number;
+  commentsCount: number;
 }

@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react'
 import React from "react";
-import Link from "next/link";
+// import Link from "next/link";
 
 import Typography from "@/components/Text";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
@@ -8,6 +8,8 @@ import { cn } from "@/lib/utils";
 import AuthButton from "./AuthButton";
 import { getLocale, getTranslations } from "next-intl/server";
 import Logo from "./Logo";
+
+import { Link } from 'next-view-transitions'
 
 const MainMenu = React.memo(async () => {
   const t = await getTranslations("MenuItems");
@@ -135,11 +137,11 @@ const MainMenu = React.memo(async () => {
 
       {/* FAQ Link - Separate from HoverCard menu */}
       <div className="flex items-center justify-center gap-3">
-  <LetsTalk locale={locale} t={t} />
-  <LatestNews locale={locale} t={t} />
+        <LetsTalk locale={locale} t={t} />
+        <LatestNews locale={locale} t={t} />
 
-  <AuthButton />
-</div>
+        <AuthButton />
+      </div>
     </nav>
   );
 });
@@ -238,7 +240,7 @@ const LatestNews = ({ locale, t }: { locale: string; t: any }) => {
           "group-hover:rotate-[360deg]"
         )}>
           <Icon icon="flat-color-icons:news" />
-           
+
         </div>
 
         <Typography

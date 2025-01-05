@@ -1,10 +1,10 @@
 'use client';
 
-import { motion } from "framer-motion";
+import { HTMLMotionProps, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import React from "react";
 
-interface MotionDivProps extends React.HTMLAttributes<HTMLDivElement> {
+interface MotionDivProps extends HTMLMotionProps<"div"> {
   children: React.ReactNode;
   animate?: any;
   initial?: any;

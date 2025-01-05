@@ -39,23 +39,23 @@ export default async function FAQ({
         dark:from-indigo-500/10 dark:via-purple-500/10 dark:to-pink-500/10 
         p-8 rounded-3xl backdrop-blur-sm border border-white/10 shadow-xl">
         <div className="space-y-3">
-          <Text 
-            variant="h1" 
-            locale={locale} 
+          <Text
+            variant="h1"
+            locale={locale}
             className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent"
           >
             {t("Faq.pagetitle")}
           </Text>
-          <Text 
-            variant="p" 
-            locale={locale} 
+          <Text
+            variant="p"
+            locale={locale}
             className="text-gray-600 dark:text-gray-300 text-sm sm:text-base max-w-2xl"
           >
             {t("Faq.pageDescription")}
           </Text>
         </div>
-        <Link 
-          href={`/${locale}/addquastion`} 
+        <Link
+          href={`/${locale}/addquastion`}
           className="group flex items-center gap-3 px-6 py-3 
             bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 
             hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600
@@ -63,9 +63,9 @@ export default async function FAQ({
             transform hover:scale-105 hover:shadow-2xl 
             shadow-lg shadow-indigo-500/20"
         >
-          <Icon 
-            icon="solar:chat-square-plus-bold" 
-            className="w-5 h-5 transition-transform duration-300 group-hover:rotate-12" 
+          <Icon
+            icon="solar:chat-square-plus-bold"
+            className="w-5 h-5 transition-transform duration-300 group-hover:rotate-12"
           />
           <Text variant="span" locale={locale} className="font-medium">
             {t("Faq.askQuestion")}
@@ -104,27 +104,27 @@ const NoQuestions = ({ t }: { t: any }) => {
       backdrop-blur-sm shadow-xl">
       <div className="relative">
         <div className="absolute inset-0 animate-ping opacity-30">
-          <Icon 
-            icon="solar:search-broken" 
-            className="w-20 h-20 text-gray-400/50" 
+          <Icon
+            icon="solar:search-broken"
+            className="w-20 h-20 text-gray-400/50"
           />
         </div>
-        <Icon 
-          icon="solar:search-broken" 
-          className="w-20 h-20 text-gray-400 animate-pulse" 
+        <Icon
+          icon="solar:search-broken"
+          className="w-20 h-20 text-gray-400 animate-pulse"
         />
       </div>
       <div className="text-center space-y-3 max-w-md px-6">
-        <Text 
-          variant="h2" 
-          locale={t.locale} 
+        <Text
+          variant="h2"
+          locale={t.locale}
           className="text-2xl font-bold bg-gradient-to-r from-gray-700 to-gray-900 dark:from-gray-200 dark:to-gray-100 bg-clip-text text-transparent"
         >
           {t("Faq.noQuestions")}
         </Text>
-        <Text 
-          variant="p" 
-          locale={t.locale} 
+        <Text
+          variant="p"
+          locale={t.locale}
           className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed"
         >
           {t("Faq.tryDifferentFilter")}
@@ -155,20 +155,20 @@ const NoMoreQuestions = ({ title }: { title: string }) => (
     border border-amber-200/50 dark:border-amber-500/20
     backdrop-blur-sm shadow-xl">
     <div className="flex flex-col items-center gap-6">
-      <Icon 
-        icon="solar:bell-bold" 
-        className="w-16 h-16 text-amber-500 animate-bounce" 
+      <Icon
+        icon="solar:bell-bold"
+        className="w-16 h-16 text-amber-500 animate-bounce"
       />
-      <Text 
-        variant="h3" 
-        locale="en" 
+      <Text
+        variant="h3"
+        locale="en"
         className="text-xl font-bold bg-gradient-to-r from-amber-700 to-orange-700 dark:from-amber-400 dark:to-orange-400 bg-clip-text text-transparent"
       >
         {title}
       </Text>
-      <Icon 
-        icon="svg-spinners:180-ring" 
-        className="w-10 h-10 text-amber-500" 
+      <Icon
+        icon="svg-spinners:180-ring"
+        className="w-10 h-10 text-amber-500"
       />
     </div>
   </div>

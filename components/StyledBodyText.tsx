@@ -1,22 +1,21 @@
 import React from 'react';
-import { PortableText } from '@portabletext/react'; // Ensure you have the correct import
-import Text from './Text'; // Adjust the import based on your project structure
+import { PortableText } from '@portabletext/react';
+import Text from './Text';
+import type { Post as SanityPost } from '@/sanity.types';
 
-// Define the type for the post
-interface Post {
-  body: Array<any>; // Replace 'any' with the specific type if known
-}
-
-// Define the props for the StyledBodyText component
 interface StyledBodyTextProps {
-  post: Post;
+  post: SanityPost;
   locale: string;
 }
 
 const StyledBodyText: React.FC<StyledBodyTextProps> = ({ post, locale }) => {
+  if (!post.body) {
+    return null; // or a placeholder
+  }
+
   return (
     <PortableText
-      value={post.body} // Assuming post is an object with a body property
+      value={post.body}
       components={{
         block: {
           normal: ({ children }) => <Text locale={locale} className="mb-4">{children}</Text>,
@@ -51,14 +50,12 @@ const StyledBodyText: React.FC<StyledBodyTextProps> = ({ post, locale }) => {
             </li>
           ),
         },
-        // Handling inline elements like span
         marks: {
           strong: ({ children }) => <strong>{children}</strong>,
           em: ({ children }) => <em>{children}</em>,
           span: ({ children, value }) => (
-            <span className={value.className}>{children}</span> // Assuming value contains className for styling
+            <span className={value.className}>{children}</span>
           ),
-          // Add more marks as needed
         },
       }}
     />
