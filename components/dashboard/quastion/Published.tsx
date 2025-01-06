@@ -1,7 +1,7 @@
 "use client";
 import { Label } from "@/components/ui/label";
 
-import { UpdateFaqPublished } from "@/actions/faq/dashboard";
+import { UpdateFaqPublished } from "@/app/[locale]/dashboard/quastion/actions/dashboard";
 import { Switch } from "@/components/ui/switch";
 import { useState } from "react";
 

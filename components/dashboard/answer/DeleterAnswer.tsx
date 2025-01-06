@@ -2,7 +2,7 @@
 import { Icon } from "@iconify/react";
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { deleteAnswer } from "@/actions/faq/dashboard";
+import { deleteAnswer } from "@/app/[locale]/dashboard/quastion/actions/dashboard";
 
 function DeleterAnswer({ AID, QID }: { AID: string; QID: string }) {
   const RemoveAnswer = async (AID: string, QID: string) => {

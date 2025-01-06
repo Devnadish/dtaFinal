@@ -2,7 +2,7 @@
 import { Icon } from "@iconify/react";
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { deleteAnswer, updateAnswer } from "@/actions/faq/dashboard";
+import { deleteAnswer, updateAnswer } from "@/app/[locale]/dashboard/quastion/actions/dashboard";
 import { Textarea } from "../../ui/textarea";
 import {
   Dialog,

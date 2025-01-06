@@ -1,17 +1,13 @@
 "use server";
 import db from "@/lib/prisma";
+import { FaqType } from "@/type/faq";
 import { revalidatePath } from "next/cache";
-export type FaqType =
-  | "all"
-  | "needAnswer"
-  | "answered"
-  | "rejected"
-  | "notPublished";
+
 export const GetFaq = async (type: FaqType) => {
   if (type === "all") {
     return await CollectAllFaq();
   }
-  if (type === "needAnswer") {
+  if (type === "pending") {
     return await GetNotAnsweredFaq();
   }
   if (type === "answered") {
@@ -20,7 +16,7 @@ export const GetFaq = async (type: FaqType) => {
   if (type === "rejected") {
     return await GetRejectedFaq();
   }
-  if (type === "notPublished") {
+  if (type === "offline") {
     return await GetNotPublishedFaq();
   }
 };
@@ -30,7 +26,10 @@ async function CollectAllFaq() {
     const fagData = await db.faq.findMany({
       where: { published: true, rejected: false },
       include: {
-        answers: true,
+        answers: { include: { comments: true } },
+        images: true,
+        voiceRecordings: true,
+        faqInteractions: true,
         tagged: true,
       },
       orderBy: {
@@ -49,7 +48,10 @@ async function GetNotAnsweredFaq() {
   return await db.faq.findMany({
     where: { gotAnswer: false },
     include: {
-      answers: true,
+      answers: { include: { comments: true } },
+      images: true,
+      voiceRecordings: true,
+      faqInteractions: true,
       tagged: true,
     },
   });
@@ -59,7 +61,10 @@ async function GetAnsweredFaq() {
   return await db.faq.findMany({
     where: { gotAnswer: true },
     include: {
-      answers: true,
+      answers: { include: { comments: true } },
+      images: true,
+      voiceRecordings: true,
+      faqInteractions: true,
       tagged: true,
     },
   });
@@ -69,7 +74,10 @@ async function GetRejectedFaq() {
   return await db.faq.findMany({
     where: { rejected: true },
     include: {
-      answers: true,
+      answers: { include: { comments: true } },
+      images: true,
+      voiceRecordings: true,
+      faqInteractions: true,
       tagged: true,
     },
   });
@@ -78,6 +86,13 @@ async function GetRejectedFaq() {
 async function GetNotPublishedFaq() {
   return await db.faq.findMany({
     where: { published: false },
+    include: {
+      answers: { include: { comments: true } },
+      images: true,
+      voiceRecordings: true,
+      faqInteractions: true,
+      tagged: true,
+    },
   });
 }
 

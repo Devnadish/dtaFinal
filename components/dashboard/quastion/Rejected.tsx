@@ -1,6 +1,6 @@
 "use client";
 
-import { UpdateFaqRejected } from "@/actions/faq/dashboard";
+import { UpdateFaqRejected } from "@/app/[locale]/dashboard/quastion/actions/dashboard";
 import LoaderComponent from "@/components/Loader";
 
 import { Button } from "@/components/ui/button";

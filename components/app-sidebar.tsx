@@ -34,7 +34,7 @@ export function AppSidebar() {
         },
         {
             title: "Question",
-            url: `/${locale}/dashboard/question`,
+            url: `/${locale}/dashboard/quastion`,
             icon: "mdi:comment-question-outline", // Question icon
         },
         {

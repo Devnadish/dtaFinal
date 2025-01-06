@@ -3,7 +3,7 @@ import { Label } from "@/components/ui/label";
 
 import { Switch } from "@/components/ui/switch";
 
-import { UpdateFaqUnRejected } from "@/actions/faq/dashboard";
+import { UpdateFaqUnRejected } from "@/app/[locale]/dashboard/quastion/actions/dashboard";
 
 import { useState } from "react";
 

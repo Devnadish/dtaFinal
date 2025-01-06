@@ -1,5 +1,5 @@
 "use client";
-import { AddFaqAnswere } from "@/actions/faq/dashboard";
+import { AddFaqAnswere } from "@/app/[locale]/dashboard/quastion/actions/dashboard";
 import LoaderComponent from "@/components/Loader";
 
 import { Button } from "@/components/ui/button";
