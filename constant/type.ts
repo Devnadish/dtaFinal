@@ -1,7 +1,7 @@
 import { Post } from "@/tmpl/sanity.types";
 
 export interface propType {
-  params: Promise<{ slug: string; category: string }>;
+  params: Promise<{ slug: string; category: string; id: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 export interface SkeletonProps {

@@ -41,21 +41,3 @@ export const faqs = async (SP: string) => {
     throw error;
   }
 };
-
-// export const faqs = async () => {
-//   const faqsData = await db.faq.findMany({
-//     include: {
-//       answers: {
-//         include: {
-//           comments: true,
-//         },
-//       },
-//       images: true,
-//       voiceRecordings: true,
-//       faqInteractions: true,
-//       tagged: true,
-//     },
-//   });
-
-//   return faqsData;
-// };

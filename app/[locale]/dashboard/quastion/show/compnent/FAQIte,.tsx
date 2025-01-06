@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/accordion";
 import { Icon } from '@iconify/react';
 import { FAQ } from '@/type/faq';
+import Link from 'next/link';
+import { useLocale } from 'next-intl';
 
 interface FAQItemProps {
     faq: FAQ;
@@ -20,11 +22,21 @@ interface FAQItemProps {
 
 export function FAQItem({ faq }: FAQItemProps) {
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
+    const locale = useLocale()
 
     return (
         <Card className="mb-6">
             <CardHeader>
-                <CardTitle>{faq.question}</CardTitle>
+                <div className='flex w-full items-center justify-between'>
+                    <CardTitle>{faq.question}</CardTitle>
+                    <Link
+                        href={`/${locale}/dashboard/quastion/edit/${faq.id}`}
+                        className="flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors duration-200"
+                    >
+                        <Icon icon="mdi:pencil" className="w-5 h-5" />
+                        <span>Edit</span>
+                    </Link>
+                </div>
                 <div>
                     <div className="flex flex-wrap items-center text-sm text-muted-foreground gap-4">
                         <span className="flex items-center">

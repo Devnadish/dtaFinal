@@ -1,5 +1,7 @@
-export interface Tag {
+interface Tag {
+  id: string;
   tag: string;
+  faqId: string; // Required property
 }
 
 export interface Answer {
