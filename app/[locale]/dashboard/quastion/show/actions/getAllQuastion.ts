@@ -5,6 +5,8 @@ function getWhereCondition(SP: string) {
   switch (SP) {
     case "published":
       return { published: true };
+    case "offline":
+      return { published: false };
     case "rejected":
       return { rejected: true };
     case "answered":
