@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { Answer } from '@/type/types';
+import { addAnswer, deleteAnswer, fetchAnswers, updateAnswer } from './answerActions';
 import { AnswerItem } from './AnswerItem';
-import { addAnswer, deleteAnswer, fetchAnswers, updateAnswer } from '../actions/answerActions';
 import { AddAnswerDialog } from './AddAnswerDialog';
 
 interface AnswerListProps {
@@ -14,8 +14,6 @@ export function AnswerList({ QID }: AnswerListProps) {
   const [answers, setAnswers] = useState<Answer[]>([]);
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState<string | null>(null); // Error state
-  console.log(answers)
-
   // Fetch answers from the server
   const fetchAndSetAnswers = async () => {
     setLoading(true);

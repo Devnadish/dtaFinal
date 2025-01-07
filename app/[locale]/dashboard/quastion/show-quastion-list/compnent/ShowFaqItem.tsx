@@ -30,7 +30,7 @@ export function FAQItem({ faq }: FAQItemProps) {
                 <div className='flex w-full items-center justify-between'>
                     <CardTitle>{faq.question}</CardTitle>
                     <Link
-                        href={`/${locale}/dashboard/quastion/edit/${faq.id}`}
+                        href={`/${locale}/dashboard/quastion/edit-quastion/${faq.id}`}
                         className="flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors duration-200"
                     >
                         <Icon icon="mdi:pencil" className="w-5 h-5" />

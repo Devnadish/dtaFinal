@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { X, Check, Loader2 } from 'lucide-react'; // Import icons for success and loading states
 import { Tag } from '@/type/types';
-import { deleteTag, fetchTags, updateTags } from '../actions/tagActions';
+import { deleteTag, fetchTags, updateTags } from './tagActions';
 import { Skeleton } from '@/components/ui/skeleton'; // Import skeleton component
 
 interface TagManagerProps {

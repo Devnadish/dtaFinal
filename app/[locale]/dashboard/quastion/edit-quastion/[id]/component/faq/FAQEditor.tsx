@@ -1,19 +1,18 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { QuestionEditor } from './QuestionEditor';
-import { AnswerList } from './AnswerList';
-import { ImageManager } from './ImageManager';
-import { VoiceRecordingManager } from './VoiceRecordingManager';
+import { useState } from "react";
+import { QuestionEditor } from "./QuestionEditor";
+import { ImageManager } from "../image/ImageManager";
+import { VoiceRecordingManager } from "../VoiceRecordingManager";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
-import { FAQ } from '@/type/faq';
-import { TagManager } from './TagManager';
-import { Icon } from '@iconify/react';
-import { Answer, Tag } from '@/type/types';
-import { Settings } from './Settings';
-import { Badge } from '@/components/ui/badge';
+import { FAQ } from "@/type/faq";
+import { TagManager } from "../tag/TagManager";
+import { Icon } from "@iconify/react";
+import { Badge } from "@/components/ui/badge";
+import { AnswerList } from "../answer/AnswerList";
+import { Tag } from "@/type/types";
+import { Settings } from "../setting/Settings";
 
 interface FAQEditorProps {
   faq: FAQ;
@@ -22,40 +21,28 @@ interface FAQEditorProps {
 export function FAQEditor({ faq }: FAQEditorProps) {
   const [editedFAQ, setEditedFAQ] = useState<FAQ>(faq);
 
-  const handleQuestionChange = (question: string) => {
-    setEditedFAQ(prev => ({ ...prev, question }));
-  };
-
-  const handleAnswersChange = (answers: FAQ['answers']) => {
-    setEditedFAQ(prev => ({ ...prev, answers }));
-  };
-
-  const handleImagesChange = (images: FAQ['images']) => {
-    setEditedFAQ(prev => ({ ...prev, images }));
-  };
-
-  const handleVoiceRecordingsChange = (voiceRecordings: FAQ['voiceRecordings']) => {
-    setEditedFAQ(prev => ({ ...prev, voiceRecordings }));
-  };
-
-  const handleSave = () => {
-    // Logic to save the updated FAQ
+  const handleVoiceRecordingsChange = (
+    voiceRecordings: FAQ["voiceRecordings"]
+  ) => {
+    setEditedFAQ((prev) => ({ ...prev, voiceRecordings }));
   };
 
   return (
-
     <Card className="w-full max-w-3xl mx-auto">
-
       <CardHeader className="flex flex-col md:flex-row items-start md:items-center justify-between w-full gap-4">
-        <LeftSection faqId={faq.id} published={faq.published} rejected={faq.rejected} rejectReson={faq.rejectedReason}
-          priority={faq.priority} />
+        <LeftSection
+          faqId={faq.id}
+          published={faq.published}
+          rejected={faq.rejected}
+          rejectReson={faq.rejectedReason}
+          priority={faq.priority}
+        />
         <RightSection
           createdAt={faq.createdAt}
           updatedAt={faq.updatedAt}
           viewerCount={faq.viewerCount}
           loveCount={faq.loveCount}
           dislovCount={faq.dislovCount}
-
         />
       </CardHeader>
 
@@ -121,26 +108,19 @@ export function FAQEditor({ faq }: FAQEditorProps) {
             <TabsTrigger value="settings">Settings</TabsTrigger>
           </TabsList>
           <TabsContent value="question">
-            <QuestionEditor
-              question={editedFAQ.question}
-              QID={editedFAQ.id}
-
-            />
+            <QuestionEditor question={editedFAQ.question} QID={editedFAQ.id} />
           </TabsContent>
           <TabsContent value="answers">
-            <AnswerList
-              QID={editedFAQ.id as string}
-
-            />
+            <AnswerList QID={editedFAQ.id as string} />
           </TabsContent>
           <TabsContent value="tags">
-            <TagManager initialTags={faq.tagged as Tag[]} faqId={faq.id as string} />
+            <TagManager
+              initialTags={faq.tagged as Tag[]}
+              faqId={faq.id as string}
+            />
           </TabsContent>
           <TabsContent value="images">
-            <ImageManager
-              images={editedFAQ.images}
-              onChange={handleImagesChange}
-            />
+            <ImageManager images={editedFAQ.images} />
           </TabsContent>
           <TabsContent value="voice">
             <VoiceRecordingManager
@@ -149,11 +129,13 @@ export function FAQEditor({ faq }: FAQEditorProps) {
             />
           </TabsContent>
           <TabsContent value="settings">
-            <Settings initialPublished={editedFAQ.published}
+            <Settings
+              initialPublished={editedFAQ.published}
               initialRejected={editedFAQ.rejected}
               initialGotAnswer={editedFAQ.gotAnswer}
               initialRejectedReason={editedFAQ.rejectedReason}
-              faqid={editedFAQ.id} />
+              faqid={editedFAQ.id}
+            />
           </TabsContent>
         </Tabs>
       </CardContent>
@@ -161,35 +143,48 @@ export function FAQEditor({ faq }: FAQEditorProps) {
   );
 }
 
-
-
-
-interface FAQCardHeaderProps {
-  faqId: string;
-  createdAt: Date;
-  updatedAt: Date;
-  viewerCount: number;
-  loveCount: number;
-  dislovCount: number;
-}
-
 // LeftSection Component
-function LeftSection({ faqId, published, rejected, rejectReson, priority }: { faqId: string, published: boolean, rejected: boolean, rejectReson: string, priority: number }) {
-  console.log(rejected)
+function LeftSection({
+  faqId,
+  published,
+  rejected,
+  rejectReson,
+  priority,
+}: {
+  faqId: string;
+  published: boolean;
+  rejected: boolean;
+  rejectReson: string;
+  priority: number;
+}) {
   return (
     <div className="flex flex-col space-y-2">
       <CardTitle className="text-2xl font-semibold">Edit FAQ</CardTitle>
-      <div className='flex items-center gap-2'>
+      <div className="flex items-center gap-2">
         <p className="text-sm text-muted-foreground">ID: {faqId}</p>
-        <Badge variant="secondary" className='w-fit'>Priority : {priority}</Badge>
+        <Badge variant="secondary" className="w-fit">
+          Priority : {priority}
+        </Badge>
       </div>
-      <div className='flex flex-col gap-2'>
-        <div className=' flex items-center gap-2'>
-          <Badge variant="secondary" className='w-fit'> {published ? 'Online' : 'Offline'}</Badge>
-          {rejected && <Badge variant="secondary" className='w-fit bg-destructive'> rejected  </Badge>}
+      <div className="flex flex-col gap-2">
+        <div className=" flex items-center gap-2">
+          <Badge variant="secondary" className="w-fit">
+            {" "}
+            {published ? "Online" : "Offline"}
+          </Badge>
+          {rejected && (
+            <Badge variant="secondary" className="w-fit bg-destructive">
+              {" "}
+              rejected{" "}
+            </Badge>
+          )}
         </div>
-        {rejected && <p className="text-xs text-muted-foreground"><strong>Because :</strong>{rejectReson}</p>}
-
+        {rejected && (
+          <p className="text-xs text-muted-foreground">
+            <strong>Because :</strong>
+            {rejectReson}
+          </p>
+        )}
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import React from "react";
 import { faqs } from "./actions/getAllQuastion";
 import { propType } from "@/constant/type";
 import { FAQ } from "@/type/faq";
-import { FAQList } from "./compnent/FAQList";
+import { ShowFaqList } from "./compnent/ShowFaqList";
 
 export default async function Page({ params, searchParams }: propType) {
   const SP = (await searchParams).type ?? 'all'; // Default to 'all' if type is not provided
@@ -23,7 +23,7 @@ export default async function Page({ params, searchParams }: propType) {
         <div className="max-w-3xl mx-auto">
           <h1 className="text-3xl font-bold text-center mb-8">FAQ Display</h1>
           {getFaqs.length > 0 ? (
-            <FAQList faqs={getFaqs as FAQ[]} />
+            <ShowFaqList faqs={getFaqs as FAQ[]} />
           ) : (
             <div className="text-center p-8 bg-slate-100 rounded-lg shadow-md">
               <p className="text-xl font-medium text-gray-600">

@@ -41,7 +41,7 @@ const QueryCard: React.FC<QueryLinkProps> = ({
 }) => (
   <Link
     href={{
-      pathname: `/${locale}/dashboard/quastion/show`,
+      pathname: `/${locale}/dashboard/quastion/show-quastion-list`,
       query: { type: `${queryType}` },
     }}
 

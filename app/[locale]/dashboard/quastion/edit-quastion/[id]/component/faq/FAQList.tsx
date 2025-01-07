@@ -1,11 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import { FAQ, SortOption, SortConfig } from '@/types/faq'
 import { FAQItem } from './FAQItem'
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Icon } from '@iconify/react'
+import { FAQ, SortConfig, SortOption } from '@/type/faq'
 
 interface FAQListProps {
   faqs: FAQ[] | null

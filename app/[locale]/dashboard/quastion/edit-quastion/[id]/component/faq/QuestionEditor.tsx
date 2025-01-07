@@ -1,7 +1,7 @@
 import { useActionState, useState } from 'react'
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
-import { editFaq } from '../actions/updateFaq'
+import { editFaq } from './updateFaq'
 
 interface QuestionEditorProps {
   question: string

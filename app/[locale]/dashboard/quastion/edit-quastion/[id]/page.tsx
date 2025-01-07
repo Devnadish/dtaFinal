@@ -1,5 +1,5 @@
-import { getQusationById } from './actions/actions';
-import { FAQEditor } from './component/FAQEditor';
+import { getQusationById } from './component/faq/faqActions';
+import { FAQEditor } from './component/faq/FAQEditor';
 import { FAQ } from '@/type/faq';
 import { propType } from '@/constant/type'
 import React from 'react'

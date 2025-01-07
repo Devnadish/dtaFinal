@@ -1,30 +1,20 @@
 import { useState } from 'react'
 import Image from 'next/image'
-import { Image as ImageType } from '@/types/faq'
+import { Image as ImageType } from '@/type/faq'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Trash2, Upload } from 'lucide-react'
 
 interface ImageManagerProps {
   images: ImageType[]
-  onChange: (images: ImageType[]) => void
 }
 
-export function ImageManager({ images, onChange }: ImageManagerProps) {
+export function ImageManager({ images }: ImageManagerProps) {
   const [newImageUrl, setNewImageUrl] = useState('')
 
-  const handleAddImage = () => {
-    if (newImageUrl) {
-      const newImage: ImageType = { id: Date.now().toString(), url: newImageUrl }
-      onChange([...images, newImage])
-      setNewImageUrl('')
-    }
-  }
 
-  const handleRemoveImage = (id: string) => {
-    const newImages = images.filter(image => image.id !== id)
-    onChange(newImages)
-  }
+
+
 
   return (
     <div className="space-y-4">
@@ -35,7 +25,7 @@ export function ImageManager({ images, onChange }: ImageManagerProps) {
           value={newImageUrl}
           onChange={(e) => setNewImageUrl(e.target.value)}
         />
-        <Button onClick={handleAddImage}>
+        <Button >
           <Upload className="mr-2 h-4 w-4" /> Add Image
         </Button>
       </div>
@@ -53,7 +43,7 @@ export function ImageManager({ images, onChange }: ImageManagerProps) {
               variant="destructive"
               size="icon"
               className="absolute top-2 right-2"
-              onClick={() => handleRemoveImage(image.id)}
+
             >
               <Trash2 className="h-4 w-4" />
             </Button>

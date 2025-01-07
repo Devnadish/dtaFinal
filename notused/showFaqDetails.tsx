@@ -8,7 +8,7 @@ interface FAQDetailsProps {
     faq: FAQ
 }
 
-export function FAQDetails({ faq }: FAQDetailsProps) {
+export function showFaqDetails({ faq }: FAQDetailsProps) {
     const [isExpanded, setIsExpanded] = useState(false)
     const [selectedImage, setSelectedImage] = useState<string | null>(null)
 

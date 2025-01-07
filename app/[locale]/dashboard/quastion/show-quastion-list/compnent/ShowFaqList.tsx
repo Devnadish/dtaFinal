@@ -5,13 +5,13 @@ import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Icon } from '@iconify/react'
 import { FAQ, SortConfig, SortOption } from '@/type/faq'
-import { FAQItem } from './FAQIte,'
+import { FAQItem } from './ShowFaqItem'
 
 interface FAQListProps {
     faqs: FAQ[] | null
 }
 
-export function FAQList({ faqs }: FAQListProps) {
+export function ShowFaqList({ faqs }: FAQListProps) {
     const [sortConfig, setSortConfig] = useState<SortConfig>({ key: 'createdAt', direction: 'desc' })
 
     if (!faqs || !Array.isArray(faqs)) {
