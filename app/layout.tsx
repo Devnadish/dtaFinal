@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Toaster } from "@/components/ui/toaster";
 import {
   outfit,
   geistMono,
@@ -22,6 +21,7 @@ import FooterBar from "@/components/headerAndFotter/fotter/FooterBar";
 import BodyContainer from "@/components/Container";
 import { Directions } from "@/constant/enums";
 import { ViewTransitions } from 'next-view-transitions'
+import { Toaster } from "@/components/ui/sonner";
 
 export async function generateStaticParams() {
   return routing.locales.map(locale => ({ locale }));

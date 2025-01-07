@@ -149,7 +149,7 @@ export const DashboardFaqCounter = async () => {
   });
 
   const answeredQuestions = await db.faq.count({
-    where: { gotAnswer: true, published: true },
+    where: { gotAnswer: true, published: true, rejected: false },
   });
 
   const unPublishedQuestions = await db.faq.count({

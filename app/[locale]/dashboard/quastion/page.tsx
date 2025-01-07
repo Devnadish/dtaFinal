@@ -11,6 +11,7 @@ interface QueryLinkProps {
   title: string;
   icon: string;
   locale: string; // Ensure locale is of type string
+  hint: string;
 }
 
 
@@ -36,7 +37,7 @@ const QueryCard: React.FC<QueryLinkProps> = ({
   count,
   title,
   icon,
-  locale,
+  locale, hint
 }) => (
   <Link
     href={{
@@ -51,6 +52,7 @@ const QueryCard: React.FC<QueryLinkProps> = ({
     <Icon icon={icon} className="h-10 w-10 text-blue-500 mb-4" />
     <h3 className="text-xl font-bold text-foreground uppercase">{title}</h3>
     <p className="text-base text-muted-foreground">{count} Questions</p>
+    <p className="text-xs text-muted-foreground">{hint}</p>
   </Link>
 );
 
@@ -72,6 +74,7 @@ const Page: React.FC = async () => {
         icon="mdi:clipboard-outline"
         title="All Questions"
         locale={locale}
+        hint={"all"}
       />
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
 
@@ -81,6 +84,7 @@ const Page: React.FC = async () => {
           icon="mdi:check-circle-outline"
           title="Answered"
           locale={locale}
+          hint={"Published =true, Rejected=false"}
         />
         <QueryCard
           queryType="pending"
@@ -88,6 +92,7 @@ const Page: React.FC = async () => {
           icon="mdi:help-circle-outline"
           title="Pending"
           locale={locale}
+          hint={"gotAnswer=true"}
         />
 
         <QueryCard
@@ -96,6 +101,7 @@ const Page: React.FC = async () => {
           icon="mdi:close-circle-outline"
           title="Rejected"
           locale={locale}
+          hint={"rejected=true"}
         />
         <QueryCard
           queryType="offline"
@@ -103,6 +109,7 @@ const Page: React.FC = async () => {
           icon="mdi:eye-off-outline"
           title="offline"
           locale={locale}
+          hint={"Publish=false"}
         />
       </div>
     </div>

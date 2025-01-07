@@ -25,6 +25,7 @@ model FaqImage {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   url       String?
   publicId  String?
+  published Boolean  @default(true)
   faqId     String   @db.ObjectId
   faq       faq      @relation(fields: [faqId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
@@ -34,6 +35,7 @@ model FaqVoiceRecording {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   url       String?
   publicId  String?
+  published Boolean  @default(true)
   faqId     String   @db.ObjectId
   faq       faq      @relation(fields: [faqId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
