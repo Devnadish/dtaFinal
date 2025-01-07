@@ -43,125 +43,121 @@ export function FAQEditor({ faq }: FAQEditorProps) {
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto">
-      <div className="mb-4">
-        <Button onClick={handleSave}>Save FAQ</Button>
-      </div>
-      <Card className="w-full max-w-3xl mx-auto">
 
-        <CardHeader className="flex flex-col md:flex-row items-start md:items-center justify-between w-full gap-4">
-          <LeftSection faqId={faq.id} published={faq.published} rejected={faq.rejected} rejectReson={faq.rejectedReason}
-            priority={faq.priority} />
-          <RightSection
-            createdAt={faq.createdAt}
-            updatedAt={faq.updatedAt}
-            viewerCount={faq.viewerCount}
-            loveCount={faq.loveCount}
-            dislovCount={faq.dislovCount}
+    <Card className="w-full max-w-3xl mx-auto">
 
-          />
-        </CardHeader>
+      <CardHeader className="flex flex-col md:flex-row items-start md:items-center justify-between w-full gap-4">
+        <LeftSection faqId={faq.id} published={faq.published} rejected={faq.rejected} rejectReson={faq.rejectedReason}
+          priority={faq.priority} />
+        <RightSection
+          createdAt={faq.createdAt}
+          updatedAt={faq.updatedAt}
+          viewerCount={faq.viewerCount}
+          loveCount={faq.loveCount}
+          dislovCount={faq.dislovCount}
 
-        <CardContent>
-          <Tabs defaultValue="question" className="w-full">
-            <TabsList className="grid w-full grid-cols-6">
-              {/* Question Tab */}
-              <TabsTrigger value="question">Question</TabsTrigger>
+        />
+      </CardHeader>
 
-              {/* Answers Tab */}
-              <TabsTrigger value="answers">
-                Answers
-                <span
-                  className={`flex items-center justify-center rounded-full size-4 border text-foreground ml-1 text-[10px] ${faq.answers.length === 0
-                    ? "bg-gray-400 border-gray-500" // Gray background if no answers
-                    : "bg-green-600 border-green-500" // Green background if answers exist
-                    }`}
-                >
-                  {faq.answers.length}
-                </span>
-              </TabsTrigger>
+      <CardContent>
+        <Tabs defaultValue="question" className="w-full">
+          <TabsList className="grid w-full grid-cols-6">
+            {/* Question Tab */}
+            <TabsTrigger value="question">Question</TabsTrigger>
 
-              {/* Tags Tab */}
-              <TabsTrigger value="tags">
-                Tags
-                <span
-                  className={`flex items-center justify-center rounded-full size-4 border text-foreground ml-1 text-[10px] ${faq.tagged.length === 0
-                    ? "bg-gray-400 border-gray-500" // Gray background if no tags
-                    : "bg-green-600 border-green-500" // Green background if tags exist
-                    }`}
-                >
-                  {faq.tagged.length}
-                </span>
-              </TabsTrigger>
+            {/* Answers Tab */}
+            <TabsTrigger value="answers">
+              Answers
+              <span
+                className={`flex items-center justify-center rounded-full size-4 border text-foreground ml-1 text-[10px] ${faq.answers.length === 0
+                  ? "bg-gray-400 border-gray-500" // Gray background if no answers
+                  : "bg-green-600 border-green-500" // Green background if answers exist
+                  }`}
+              >
+                {faq.answers.length}
+              </span>
+            </TabsTrigger>
 
-              {/* Images Tab */}
-              <TabsTrigger value="images">
-                Images
-                <span
-                  className={`flex items-center justify-center rounded-full size-4 border text-foreground ml-1 text-[10px] ${faq.images.length === 0
-                    ? "bg-gray-400 border-gray-500" // Gray background if no images
-                    : "bg-green-600 border-green-500" // Green background if images exist
-                    }`}
-                >
-                  {faq.images.length}
-                </span>
-              </TabsTrigger>
+            {/* Tags Tab */}
+            <TabsTrigger value="tags">
+              Tags
+              <span
+                className={`flex items-center justify-center rounded-full size-4 border text-foreground ml-1 text-[10px] ${faq.tagged.length === 0
+                  ? "bg-gray-400 border-gray-500" // Gray background if no tags
+                  : "bg-green-600 border-green-500" // Green background if tags exist
+                  }`}
+              >
+                {faq.tagged.length}
+              </span>
+            </TabsTrigger>
 
-              {/* Voice Tab */}
-              <TabsTrigger value="voice">
-                Voice
-                <span
-                  className={`flex items-center justify-center rounded-full size-4 border text-foreground ml-1 text-[10px] ${faq.voiceRecordings.length === 0
-                    ? "bg-gray-400 border-gray-500" // Gray background if no voice recordings
-                    : "bg-green-600 border-green-500" // Green background if voice recordings exist
-                    }`}
-                >
-                  {faq.voiceRecordings.length}
-                </span>
-              </TabsTrigger>
+            {/* Images Tab */}
+            <TabsTrigger value="images">
+              Images
+              <span
+                className={`flex items-center justify-center rounded-full size-4 border text-foreground ml-1 text-[10px] ${faq.images.length === 0
+                  ? "bg-gray-400 border-gray-500" // Gray background if no images
+                  : "bg-green-600 border-green-500" // Green background if images exist
+                  }`}
+              >
+                {faq.images.length}
+              </span>
+            </TabsTrigger>
 
-              {/* Settings Tab */}
-              <TabsTrigger value="settings">Settings</TabsTrigger>
-            </TabsList>
-            <TabsContent value="question">
-              <QuestionEditor
-                question={editedFAQ.question}
-                QID={editedFAQ.id}
+            {/* Voice Tab */}
+            <TabsTrigger value="voice">
+              Voice
+              <span
+                className={`flex items-center justify-center rounded-full size-4 border text-foreground ml-1 text-[10px] ${faq.voiceRecordings.length === 0
+                  ? "bg-gray-400 border-gray-500" // Gray background if no voice recordings
+                  : "bg-green-600 border-green-500" // Green background if voice recordings exist
+                  }`}
+              >
+                {faq.voiceRecordings.length}
+              </span>
+            </TabsTrigger>
 
-              />
-            </TabsContent>
-            <TabsContent value="answers">
-              <AnswerList
-                QID={editedFAQ.id as string}
+            {/* Settings Tab */}
+            <TabsTrigger value="settings">Settings</TabsTrigger>
+          </TabsList>
+          <TabsContent value="question">
+            <QuestionEditor
+              question={editedFAQ.question}
+              QID={editedFAQ.id}
 
-              />
-            </TabsContent>
-            <TabsContent value="tags">
-              <TagManager initialTags={faq.tagged as Tag[]} faqId={faq.id as string} />
-            </TabsContent>
-            <TabsContent value="images">
-              <ImageManager
-                images={editedFAQ.images}
-                onChange={handleImagesChange}
-              />
-            </TabsContent>
-            <TabsContent value="voice">
-              <VoiceRecordingManager
-                voiceRecordings={editedFAQ.voiceRecordings}
-                onChange={handleVoiceRecordingsChange}
-              />
-            </TabsContent>
-            <TabsContent value="settings">
-              <Settings initialPublished={editedFAQ.published}
-                initialRejected={editedFAQ.rejected}
-                initialGotAnswer={editedFAQ.gotAnswer}
-                initialRejectedReason={editedFAQ.rejectedReason}
-                faqid={editedFAQ.id} />
-            </TabsContent>
-          </Tabs>
-        </CardContent>
-      </Card>
-    </div>
+            />
+          </TabsContent>
+          <TabsContent value="answers">
+            <AnswerList
+              QID={editedFAQ.id as string}
+
+            />
+          </TabsContent>
+          <TabsContent value="tags">
+            <TagManager initialTags={faq.tagged as Tag[]} faqId={faq.id as string} />
+          </TabsContent>
+          <TabsContent value="images">
+            <ImageManager
+              images={editedFAQ.images}
+              onChange={handleImagesChange}
+            />
+          </TabsContent>
+          <TabsContent value="voice">
+            <VoiceRecordingManager
+              voiceRecordings={editedFAQ.voiceRecordings}
+              onChange={handleVoiceRecordingsChange}
+            />
+          </TabsContent>
+          <TabsContent value="settings">
+            <Settings initialPublished={editedFAQ.published}
+              initialRejected={editedFAQ.rejected}
+              initialGotAnswer={editedFAQ.gotAnswer}
+              initialRejectedReason={editedFAQ.rejectedReason}
+              faqid={editedFAQ.id} />
+          </TabsContent>
+        </Tabs>
+      </CardContent>
+    </Card>
   );
 }
 
