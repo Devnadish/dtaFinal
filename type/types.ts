@@ -70,15 +70,6 @@ export interface FilterOptionsProps {
 }
 
 // User Types
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-  subscriptionType: string;
-  image: string;
-  initailBalance: number;
-  usedBalance: number;
-}
 
 export interface UserInformation {
   ip: string;

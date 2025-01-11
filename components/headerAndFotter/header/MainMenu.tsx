@@ -138,6 +138,7 @@ const MainMenu = React.memo(async () => {
       {/* FAQ Link - Separate from HoverCard menu */}
       <div className="flex items-center justify-center gap-3">
         <LetsTalk locale={locale} t={t} />
+        <TempLetsTalk locale={locale} t={t} />
         <LatestNews locale={locale} t={t} />
 
         <AuthButton />
@@ -155,7 +156,8 @@ export default MainMenu;
 const LetsTalk = ({ locale, t }: { locale: string; t: any }) => {
   return (
     <Link
-      href={`/${locale}/faq/ansewrd`}
+      // href={`/${locale}/faq/ansewrd`}
+      href={`/${locale}/show-all-quastion`}
       className={cn(
         "relative flex items-center gap-2",
         "px-3 py-2",
@@ -255,6 +257,61 @@ const LatestNews = ({ locale, t }: { locale: string; t: any }) => {
           )}
         >
           {t("news")}
+        </Typography>
+      </div>
+    </Link>
+  );
+};
+
+
+
+const TempLetsTalk = ({ locale, t }: { locale: string; t: any }) => {
+  return (
+    <Link
+      href={`/${locale}/faq/ansewrd`}
+      className={cn(
+        "relative flex items-center gap-2 bg-green-300",
+        "px-3 py-2",
+        "rounded-lg transition-all duration-300",
+        "border border-primary/20",
+        "overflow-hidden group",
+        "hover:shadow-[0_4px_12px_-6px_rgba(0,0,0,0.1)]",
+        "hover:border-primary/40",
+        "hover:scale-[1.01]"
+      )}
+    >
+      <div className={cn(
+        "absolute inset-0 opacity-0 group-hover:opacity-100",
+        "bg-gradient-to-r from-primary/10 to-primary/5",
+        "blur-lg transition-all duration-500",
+        "group-hover:blur-xl"
+      )} />
+
+      <div className={cn(
+        "relative flex items-center gap-2",
+        "z-10"
+      )}>
+        <div className={cn(
+          "p-1.5 rounded-md",
+          "bg-primary/10 group-hover:bg-primary/20",
+          "transition-all duration-300",
+          "group-hover:rotate-[360deg]"
+        )}>
+          <Icon icon="lucide:message-circle" />
+        </div>
+
+        <Typography
+          variant="span"
+          locale={locale}
+          className={cn(
+            "text-xs font-medium",
+            "bg-clip-text",
+            "transition-all duration-300",
+            "group-hover:text-primary/90",
+            "group-hover:translate-x-0.5"
+          )}
+        >
+          {t("faq")}
         </Typography>
       </div>
     </Link>

@@ -106,3 +106,15 @@ export enum UserRole {
   USER = "USER",
   ADMIN = "ADMIN",
 }
+
+export enum questionQueryMode {
+  QUESTIONS = "questions",
+  ANSWERS = "answers",
+}
+
+export enum questionStatus {
+  PUBLISHED = "published",
+  REJECTED = "rejected",
+  ANSWERED = "answered",
+  PENDING = "pending",
+}

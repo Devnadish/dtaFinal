@@ -6,7 +6,18 @@ export async function GetDetailQuastion(slug: string) {
   const question = await db.faq.findUnique({
     where: { slug },
     include: {
-      answers: { include: { comments: true } },
+      answers: {
+        include: {
+          comments: {
+            orderBy: {
+              updatedAt: "desc", // Order comments by updatedAt in descending order
+            },
+          },
+        },
+        orderBy: {
+          updatedAt: "desc", // Order answers by updatedAt in descending order
+        },
+      },
       tagged: true,
     },
   });

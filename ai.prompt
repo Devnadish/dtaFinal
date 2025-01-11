@@ -1,0 +1,92 @@
+model faq {
+  id              String              @id @default(auto()) @map("_id") @db.ObjectId
+  slug            String              @unique
+  question        String              @default("")
+  userEmail       String              @default("")
+  priority        Int                 @default(1)
+  userPlan        String              @default("basic")
+  viewerCount     Int                 @default(0)
+  loveCount       Int                 @default(0)
+  dislovCount     Int                 @default(0)
+  answers         answer[]
+  tagged          tagged[]
+  published       Boolean             @default(false)
+  rejected        Boolean             @default(false)
+  gotAnswer       Boolean             @default(false)
+  rejectedReason  String              @default("")
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+  images          FaqImage[]
+  voiceRecordings FaqVoiceRecording[]
+  faqInteractions faqInteraction[]
+}
+
+model FaqImage {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  url       String?
+  publicId  String?
+  published Boolean  @default(true)
+  faqId     String   @db.ObjectId
+  faq       faq      @relation(fields: [faqId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}
+
+model FaqVoiceRecording {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  url       String?
+  publicId  String?
+  published Boolean  @default(true)
+  faqId     String   @db.ObjectId
+  faq       faq      @relation(fields: [faqId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}
+
+model faqInteraction {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt  DateTime @default(now())
+  userEmail  String?
+  userImage  String?
+  isLoved    Boolean  @default(false)
+  isDisliked Boolean  @default(false)
+  faqId      String   @db.ObjectId
+  faq        faq      @relation(fields: [faqId], references: [id])
+
+  @@unique([faqId, userEmail])
+  @@index([faqId])
+  @@index([userEmail])
+}
+
+model answer {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  content   String    @default("")
+  userEmail String?
+  faqId     String    @db.ObjectId
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  faq       faq       @relation(fields: [faqId], references: [id])
+  comments  comment[] @relation("AnswerToComment")
+}
+
+model comment {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  content   String   @default("")
+  answerId  String   @db.ObjectId
+  answer    answer   @relation("AnswerToComment", fields: [answerId], references: [id])
+  userEmail String?
+  userImage String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model tagged {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  faqId String @db.ObjectId
+  tag   String @default("")
+  faq   faq    @relation(fields: [faqId], references: [id])
+}
+
+model tag {
+  id  String @id @default(auto()) @map("_id") @db.ObjectId
+  tag String @default("")
+}
+this prisma schema with mongodb nextjs 15 with typescript and tailwindcss and shadcn i want fully responsieve page with infinite scroll and very nice and pretty  ui and user with seacrch functionality and fillters functionality and make it solid and clean code note: useing: server actions  - create dummy data to test the functionlalty of infinite scroll 

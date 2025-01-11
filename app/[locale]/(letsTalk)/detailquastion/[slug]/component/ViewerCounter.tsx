@@ -1,8 +1,7 @@
 "use client";
-import { interactionAction } from "@/actions/faq/detailQuastion";
+import { interactionAction } from "@/app/[locale]/(letsTalk)/detailquastion/[slug]/actions/detailQuastion";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@iconify/react";
-
 
 const ViewerCounter = ({
   viewerCount,
@@ -41,14 +40,8 @@ export const LoveItConter = ({
   };
 
   return (
-    <Button
-      className="text-sm text-muted-foreground flex items-center justify-center h-5  bg-greenColor  "
-      onClick={handleLoveIt}
-      variant={"link"}
-    >
-      {/* <LoveIt width={16} height={16} /> */}
-
-      <p className="text-[10px] text-foreground">I love it</p>
+    <Button onClick={handleLoveIt} variant="outline">
+      <Icon icon="mdi:heart-outline" />
     </Button>
   );
 };
@@ -65,12 +58,8 @@ export const DislikeCounter = ({
     await interactionAction(slug, userEmail, "dislike");
   };
   return (
-    <Button
-      className="text-sm  flex items-center justify-center h-5  bg-destructive text-foreground  "
-      onClick={handleDislike}
-      variant={"link"}
-    >
-      <p className="text-[10px]">I dislike it</p>
+    <Button onClick={handleDislike} variant="outline">
+      <Icon icon="mdi:thumb-down-outline" />
     </Button>
   );
 };
@@ -82,7 +71,7 @@ const ShowCounters = ({
   counter: number;
   icon: React.ReactNode;
 }) => (
-  <div className="rounded-md text-xs text-muted-foreground flex items-center justify-center    border bg-secondary border-white/20 p-0 py-1 px-2">
+  <div className="rounded-md text-xs text-muted-foreground flex items-center justify-center  gap-2  border bg-secondary border-white/20 p-0 py-1 px-2">
     {icon}
     <p className="text-[10px]">{counter}</p>
   </div>
