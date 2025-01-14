@@ -108,8 +108,3 @@ export type FAQWithRelations = Prisma.faqGetPayload<{
     tagged: true;
   };
 }>;
-export type SortOption = "createdAt" | "viewerCount" | "loveCount" | "priority";
-export interface SortConfig {
-  key: SortOption;
-  direction: "asc" | "desc";
-}

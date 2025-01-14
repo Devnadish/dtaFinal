@@ -18,6 +18,7 @@ import { Icon } from "@iconify/react"; // Import Iconify
 import Link from "next/link";
 import { useLocale } from "next-intl";
 import { SideHeader } from "./SideHeader";
+import AddQuastionComponent from "../show-all-quastion/component/AddQuastionComponent";
 interface User {
   useEmail: string;
   useName: string;
@@ -27,6 +28,7 @@ interface User {
 export function FAQAppSidebar({ useEmail, useName, userImage }: User) {
   const locale = useLocale();
   const { state } = useSidebar();
+  // console.log("tag :>>", { tags });
 
   const quastions = [
     {
@@ -37,17 +39,22 @@ export function FAQAppSidebar({ useEmail, useName, userImage }: User) {
     {
       title: "Answered",
       url: `/${locale}/show-all-quastion?status=answered`, // Add query parameter
-      icon: "mdi:account-outline", // User icon
+      icon: "mdi:check-decagram", // User icon
     },
     {
       title: "Pending",
       url: `/${locale}/show-all-quastion?status=pending`, // Add query parameter
-      icon: "mdi:account-outline", // User icon
+      icon: "mdi:watch-later", // User icon
     },
     {
       title: "Rejected",
       url: `/${locale}/show-all-quastion?status=rejected`, // Add query parameter
-      icon: "mdi:tag-outline", // Tag icon
+      icon: "mdi:cancel-circle", // Tag icon
+    },
+    {
+      title: "Analitic",
+      url: `/${locale}/Analtic`, // Add query parameter
+      icon: "mdi:chart-bar-stacked", // Tag icon
     },
   ];
   const filterOptions = [
@@ -97,7 +104,7 @@ export function FAQAppSidebar({ useEmail, useName, userImage }: User) {
           </SidebarGroupContent>
         </SidebarGroup>
         <SidebarSeparator />
-        <SidebarGroup>
+        {/* <SidebarGroup>
           <SidebarGroupLabel>Fliter</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
@@ -106,19 +113,19 @@ export function FAQAppSidebar({ useEmail, useName, userImage }: User) {
                   <SidebarMenuButton asChild>
                     <Link href={item.url} className="flex items-center gap-2">
                       <Icon icon={item.icon} className="h-5 w-5" />{" "}
-                      {/* Iconify icon */}
                       <span>{item.title}</span>
                     </Link>
                   </SidebarMenuButton>
                   <SidebarMenuBadge>8</SidebarMenuBadge>
-                  {/* <SidebarMenuSkeleton showIcon /> */}
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
-        </SidebarGroup>
+        </SidebarGroup> */}
       </SidebarContent>
-      <SidebarFooter className="bg-green-500" />
+      <SidebarFooter className="bg-green-500">
+        {/* <AddQuastionComponent /> */}
+      </SidebarFooter>
     </Sidebar>
   );
 }

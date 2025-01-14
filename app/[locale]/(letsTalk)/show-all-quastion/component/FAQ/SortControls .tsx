@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Icon } from "@iconify/react";
-import { SortOption } from "@/type/faq";
+import { SortOption } from "../../actions/Faqtypes";
 
 interface SortControlsProps {
   sortKey: SortOption;

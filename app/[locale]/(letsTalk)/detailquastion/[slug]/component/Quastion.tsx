@@ -1,4 +1,10 @@
-import { faq, tagged, comment } from "@prisma/client";
+import {
+  faq,
+  tagged,
+  comment,
+  FaqImage,
+  FaqVoiceRecording,
+} from "@prisma/client";
 import { Answer } from "@/type/types";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import ViewerCounter, { DislikeCounter, LoveItConter } from "./ViewerCounter";
@@ -6,6 +12,11 @@ import UserInformation from "@/components/UserInformaton";
 import ShowDate from "./ShowDate";
 import { getLocale } from "next-intl/server";
 import Text from "../../../../../../components/Text";
+import TagList from "./TagList";
+import { Icon } from "@iconify/react";
+import Slider from "../../../../../../components/Slider";
+import { CollapsibleComponent } from "../../../../../../components/ui/Collapse";
+import PlayVoice from "./PlayVoice";
 
 // Define the type for the props
 interface QuastionProps {
@@ -18,6 +29,8 @@ interface FaqWithAnswers extends faq {
   answers?: Answer[];
   tagged?: tagged[];
   comments?: comment[];
+  images?: FaqImage[];
+  voiceRecordings: FaqVoiceRecording[];
 }
 
 // Props for QuastionContent
@@ -35,7 +48,20 @@ interface QuastionFooterProps {
 }
 
 const QuastionContent = ({ item, userEmail, locale }: QuastionContentProps) => (
-  <CardContent className="flex flex-col p-6 bg-secondary/50">
+  <CardContent className="flex flex-col p-6 bg-secondary/50 gap-2">
+    {item.images && item.images?.length > 0 && (
+      <CollapsibleComponent
+        title={<ImageCounter counter={item.images?.length} />}
+      >
+        <Slider images={item.images} />
+      </CollapsibleComponent>
+    )}
+
+    {item.voiceRecordings && item.voiceRecordings?.length > 0 && (
+      <>
+        <PlayVoice voice={item.voiceRecordings} />
+      </>
+    )}
     <div className="flex items-start gap-4">
       <UserInformation email={userEmail ?? ""} showName={false} />
       <Text
@@ -77,11 +103,25 @@ const QuastionFooter = ({ item, userEmail }: QuastionFooterProps) => (
 const Quastion: React.FC<QuastionProps> = async ({ item, userEmail }) => {
   const locale = await getLocale();
   return (
-    <Card className="overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border-foreground/50">
+    <Card className="overflow-hidden shadow-md hover:border-foreground/30 transition-all duration-300 border-foreground/20 p-2">
       <QuastionContent item={item} userEmail={userEmail} locale={locale} />
       <QuastionFooter item={item} userEmail={userEmail} locale={locale} />
+      <TagList tags={item?.tagged?.map((tag) => tag.tag)} />
     </Card>
   );
 };
 
 export default Quastion;
+
+const ImageCounter = ({ counter }: { counter: number }) => (
+  <span className="flex items-center text-xs bg-green-800 p-1 rounded-lg border border-green-400 text-green-300 justify-center">
+    <Icon icon="mdi:image" className="w-4 h-4 mr-1" />
+    {counter}
+  </span>
+);
+const Voice = ({ voice }: { voice: number }) => (
+  <span className="flex items-center text-xs bg-purple-800 p-1 rounded-lg border border-purple-400 text-purple-300 justify-center">
+    <Icon icon="mdi:microphone" className="w-4 h-4 mr-1" />
+    {voice.length}
+  </span>
+);

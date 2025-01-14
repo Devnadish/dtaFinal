@@ -100,7 +100,8 @@ export default function AddTag({
               icon="eos-icons:loading"
               width={40}
               height={40}
-              className="animate-spin"/>
+              className="animate-spin"
+            />
           </div>
         ) : (
           <div className="flex flex-row flex-wrap gap-4 items-center justify-center">

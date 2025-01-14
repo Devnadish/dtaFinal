@@ -1,21 +1,23 @@
-import { Icon } from '@iconify/react'
+import { Icon } from "@iconify/react";
 import React from "react";
 // import Link from "next/link";
 
 import Typography from "@/components/Text";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 import { cn } from "@/lib/utils";
 import AuthButton from "./AuthButton";
 import { getLocale, getTranslations } from "next-intl/server";
 import Logo from "./Logo";
 
-import { Link } from 'next-view-transitions'
+import { Link } from "next-view-transitions";
 
 const MainMenu = React.memo(async () => {
   const t = await getTranslations("MenuItems");
   const locale = await getLocale();
-
-
 
   const menuItems = [
     {
@@ -44,29 +46,31 @@ const MainMenu = React.memo(async () => {
     },
   ];
 
-
-
   return (
-    <nav className={cn(
-      "sticky top-0 z-40",
-      "w-full py-2 px-4",
-      "bg-secondary/80 backdrop-blur-md",
-      "border-b border-border/30",
-      "shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]",
-      "flex items-center justify-between",
-      "transition-all duration-300 ease-in-out"
-    )}>
+    <nav
+      className={cn(
+        "sticky top-0 z-40",
+        "w-full py-2 px-4",
+        "bg-secondary/80 backdrop-blur-md",
+        "border-b border-border/30",
+        "shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]",
+        "flex items-center justify-between",
+        "transition-all duration-300 ease-in-out"
+      )}
+    >
       <div className="flex items-center justify-center gap-3">
         <Logo locale={locale} />
         <HoverCard openDelay={0} closeDelay={0}>
           <HoverCardTrigger asChild>
-            <button className={cn(
-              "flex items-center gap-2 px-3.5 py-2.5",
-              "rounded-xl transition-all duration-300",
-              "hover:bg-primary/5 active:bg-primary/10",
-              "border border-white/30",
-              "group"
-            )}>
+            <button
+              className={cn(
+                "flex items-center gap-2 px-3.5 py-2.5",
+                "rounded-xl transition-all duration-300",
+                "hover:bg-primary/5 active:bg-primary/10",
+                "border border-white/30",
+                "group"
+              )}
+            >
               <Icon icon="lucide:menu" />
               <Typography
                 variant="span"
@@ -101,11 +105,13 @@ const MainMenu = React.memo(async () => {
                     "group"
                   )}
                 >
-                  <div className={cn(
-                    "p-2 rounded-lg",
-                    "bg-primary/5 group-hover:bg-primary/10",
-                    "transition-all duration-300"
-                  )}>
+                  <div
+                    className={cn(
+                      "p-2 rounded-lg",
+                      "bg-primary/5 group-hover:bg-primary/10",
+                      "transition-all duration-300"
+                    )}
+                  >
                     {item.icon}
                   </div>
                   <div className="flex flex-col gap-1">
@@ -151,13 +157,11 @@ MainMenu.displayName = "MainMenu";
 
 export default MainMenu;
 
-
-
 const LetsTalk = ({ locale, t }: { locale: string; t: any }) => {
   return (
     <Link
       // href={`/${locale}/faq/ansewrd`}
-      href={`/${locale}/show-all-quastion`}
+      href={`/${locale}/show-all-quastion?status=answered`}
       className={cn(
         "relative flex items-center gap-2",
         "px-3 py-2",
@@ -170,23 +174,24 @@ const LetsTalk = ({ locale, t }: { locale: string; t: any }) => {
         "hover:scale-[1.01]"
       )}
     >
-      <div className={cn(
-        "absolute inset-0 opacity-0 group-hover:opacity-100",
-        "bg-gradient-to-r from-primary/10 to-primary/5",
-        "blur-lg transition-all duration-500",
-        "group-hover:blur-xl"
-      )} />
+      <div
+        className={cn(
+          "absolute inset-0 opacity-0 group-hover:opacity-100",
+          "bg-gradient-to-r from-primary/10 to-primary/5",
+          "blur-lg transition-all duration-500",
+          "group-hover:blur-xl"
+        )}
+      />
 
-      <div className={cn(
-        "relative flex items-center gap-2",
-        "z-10"
-      )}>
-        <div className={cn(
-          "p-1.5 rounded-md",
-          "bg-primary/10 group-hover:bg-primary/20",
-          "transition-all duration-300",
-          "group-hover:rotate-[360deg]"
-        )}>
+      <div className={cn("relative flex items-center gap-2", "z-10")}>
+        <div
+          className={cn(
+            "p-1.5 rounded-md",
+            "bg-primary/10 group-hover:bg-primary/20",
+            "transition-all duration-300",
+            "group-hover:rotate-[360deg]"
+          )}
+        >
           <Icon icon="lucide:message-circle" />
         </div>
 
@@ -224,25 +229,25 @@ const LatestNews = ({ locale, t }: { locale: string; t: any }) => {
         "hover:scale-[1.01]"
       )}
     >
-      <div className={cn(
-        "absolute inset-0 opacity-0 group-hover:opacity-100",
-        "bg-gradient-to-r from-primary/10 to-primary/5",
-        "blur-lg transition-all duration-500",
-        "group-hover:blur-xl"
-      )} />
+      <div
+        className={cn(
+          "absolute inset-0 opacity-0 group-hover:opacity-100",
+          "bg-gradient-to-r from-primary/10 to-primary/5",
+          "blur-lg transition-all duration-500",
+          "group-hover:blur-xl"
+        )}
+      />
 
-      <div className={cn(
-        "relative flex items-center gap-2",
-        "z-10"
-      )}>
-        <div className={cn(
-          "p-1.5 rounded-md",
-          "bg-primary/10 group-hover:bg-primary/20",
-          "transition-all duration-300",
-          "group-hover:rotate-[360deg]"
-        )}>
+      <div className={cn("relative flex items-center gap-2", "z-10")}>
+        <div
+          className={cn(
+            "p-1.5 rounded-md",
+            "bg-primary/10 group-hover:bg-primary/20",
+            "transition-all duration-300",
+            "group-hover:rotate-[360deg]"
+          )}
+        >
           <Icon icon="flat-color-icons:news" />
-
         </div>
 
         <Typography
@@ -263,8 +268,6 @@ const LatestNews = ({ locale, t }: { locale: string; t: any }) => {
   );
 };
 
-
-
 const TempLetsTalk = ({ locale, t }: { locale: string; t: any }) => {
   return (
     <Link
@@ -280,23 +283,24 @@ const TempLetsTalk = ({ locale, t }: { locale: string; t: any }) => {
         "hover:scale-[1.01]"
       )}
     >
-      <div className={cn(
-        "absolute inset-0 opacity-0 group-hover:opacity-100",
-        "bg-gradient-to-r from-primary/10 to-primary/5",
-        "blur-lg transition-all duration-500",
-        "group-hover:blur-xl"
-      )} />
+      <div
+        className={cn(
+          "absolute inset-0 opacity-0 group-hover:opacity-100",
+          "bg-gradient-to-r from-primary/10 to-primary/5",
+          "blur-lg transition-all duration-500",
+          "group-hover:blur-xl"
+        )}
+      />
 
-      <div className={cn(
-        "relative flex items-center gap-2",
-        "z-10"
-      )}>
-        <div className={cn(
-          "p-1.5 rounded-md",
-          "bg-primary/10 group-hover:bg-primary/20",
-          "transition-all duration-300",
-          "group-hover:rotate-[360deg]"
-        )}>
+      <div className={cn("relative flex items-center gap-2", "z-10")}>
+        <div
+          className={cn(
+            "p-1.5 rounded-md",
+            "bg-primary/10 group-hover:bg-primary/20",
+            "transition-all duration-300",
+            "group-hover:rotate-[360deg]"
+          )}
+        >
           <Icon icon="lucide:message-circle" />
         </div>
 

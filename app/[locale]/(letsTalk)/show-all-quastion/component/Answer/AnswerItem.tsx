@@ -9,19 +9,11 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { FAQ } from "@/type/faq";
-import Link from "next/link";
 import FormattedDate from "@/components/FormattedDate ";
 import { UserAvatar } from "@/components/UserAvatar";
-import { ReactNode } from "react";
-import { getLocale } from "next-intl/server";
 
 interface FAQItemProps {
   faq: FAQ;
-}
-interface LinkComponentProps {
-  title: ReactNode; // Allow string or JSX for the title
-  className?: string; // Optional className
-  slug: string; // Optional
 }
 
 function AnswerCard({ faq }: FAQItemProps) {
@@ -54,14 +46,6 @@ function AnswerCard({ faq }: FAQItemProps) {
             <CardTitle>{faq.answers.length}</CardTitle>
             <span className="text-xs text-blue-500">Answer </span>
           </div>
-          <LinkComponent
-            title={"Show All"}
-            className={cn(
-              buttonVariants({ variant: "default", size: "sm" }),
-              "text-blue-500 hover:text-blue-500 capitalize font-semibold"
-            )}
-            slug={faq.slug}
-          />
         </div>
         <p className="text-lg text-card-foreground">{firstAnswer.content}</p>
 
@@ -78,33 +62,9 @@ function AnswerCard({ faq }: FAQItemProps) {
 
       <CardFooter className="items-center justify-between p-2">
         <h3 className="text-sm text-blue-500">Comments ({totalComments})</h3>
-        <LinkComponent
-          title={"Add Comment"}
-          className={cn(
-            buttonVariants({ variant: "link", size: "sm" }),
-            "text-green-500 hover:text-blue-500 capitalize font-semibold"
-          )}
-          slug={faq.slug}
-        />
       </CardFooter>
     </Card>
   );
 }
 
-// Simplified DetailItem component without Tooltip
-
 export default AnswerCard;
-
-// router.push(`/detailquastion/${slug}`);
-const LinkComponent = async ({
-  title,
-  className,
-  slug,
-}: LinkComponentProps) => {
-  const locale = await getLocale();
-  return (
-    <Link href={`/${locale}/detailquastion/${slug}`} className={className}>
-      {title}
-    </Link>
-  );
-};

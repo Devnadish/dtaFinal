@@ -6,7 +6,6 @@ import {
 
 import { FAQAppSidebar } from "./component/faq-sidebar";
 import { auth } from "@/auth";
-import { User } from "../../../type/user";
 
 export default async function Layout({
   children,
@@ -30,6 +29,7 @@ export default async function Layout({
         useName={user?.name ?? ""}
         userImage={user?.image ?? ""}
       />
+
       <SidebarInset>
         <SidebarTrigger className="-ml-1" />
         <main className="px-4">{children}</main>

@@ -1,9 +1,7 @@
 import React from "react";
-import { authOptions } from "@/lib/authConfig";
 import { auth } from "@/auth";
 import { GetDetailQuastion } from "./actions/detailQuastion";
 import Quastion from "./component/Quastion";
-import TagList from "./component/TagList";
 import Answers from "./component/Answers";
 
 async function page({ params }: { params: Promise<{ slug: string }> }) {
@@ -17,14 +15,15 @@ async function page({ params }: { params: Promise<{ slug: string }> }) {
     return <div>Question not found</div>;
   }
 
+  const islogin = session?.user ? true : false;
   return (
     <div className="flex flex-col gap-4 ">
       <Quastion item={question} key={question.id} userEmail={userEmail ?? ""} />
-      <TagList tags={question?.tagged?.map((tag) => tag.tag)} />
       <Answers
         answer={question?.answers}
         userEmail={question?.userEmail}
         slug={question?.slug}
+        islogin={islogin}
       />
     </div>
     // tags

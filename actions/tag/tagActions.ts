@@ -60,24 +60,3 @@ export async function AddFaqTags(QID: string, tags: string[]) {
   revalidatePath("/dashboard/quastion/[qid]");
   return addedTags;
 }
-
-export async function countTagsInFaq() {
-  const tagCounts = await db.tagged.groupBy({
-    by: ["tag"],
-    _count: {
-      id: true, // Count the occurrences of each tag
-    },
-  });
-
-  const tagsData = tagCounts.map(({ tag, _count }) => ({
-    tag,
-    count: _count.id,
-  }));
-  const totalCount = tagsData.reduce((sum, { count }) => sum + count, 0); // Calculate total count
-  // Update to include total count
-
-  // Sort tags by count in descending order
-  const tags = tagsData.sort((a, b) => b.count - a.count);
-
-  return { tags, totalCount };
-}

@@ -1,11 +1,10 @@
-import { unstable_cache } from "next/cache";
 import db from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
 import {
   questionQueryMode,
   questionStatus,
 } from "../../../../../constant/enums";
-import { SortOption } from "./Faqtypes";
+import { SortOption } from "../../../../../type/faq";
 
 interface GetQuestionsParams {
   tag: string;
@@ -16,19 +15,15 @@ interface GetQuestionsParams {
   limit?: number;
   sortKey?: SortOption;
   sortDirection?: "asc" | "desc";
+  tags?: string[];
 }
 
 interface GetQuestionsResult {
   QuestionsWithAnswers: any[];
   QueryCont: number;
   pagesCount: number;
-  tags: { tag: string; count: number }[];
-  totalCount: number;
 }
 
-/**
- * Builds the WHERE condition for the Prisma query based on the provided parameters.
- */
 function buildWhereCondition(
   tag: string,
   search: string,
@@ -88,9 +83,6 @@ function buildWhereCondition(
   return baseCondition;
 }
 
-/**
- * Fetches questions from the database based on the provided parameters.
- */
 export async function GetQuestions({
   tag,
   search,
@@ -108,15 +100,12 @@ export async function GetQuestions({
   orderByClause[sortKey] = sortDirection;
 
   try {
-    // Fetch total count of questions
     const QueryCont = await db.faq.count({
       where: whereCondition,
     });
 
-    // Calculate total pages
     const pagesCount = Math.ceil(QueryCont / limit);
 
-    // Fetch paginated questions with related data
     const QuestionsWithAnswers = await db.faq.findMany({
       where: whereCondition,
       include: {
@@ -130,54 +119,32 @@ export async function GetQuestions({
       skip,
       take: limit,
     });
+    const tags = await countTagsInFaq();
 
-    // Fetch tags and their counts (cached)
-    const { tags, totalCount } = await countTagsInFaq();
-
-    return { QuestionsWithAnswers, QueryCont, pagesCount, tags, totalCount };
+    return { QuestionsWithAnswers, QueryCont, pagesCount, tags };
   } catch (error) {
     console.error("Error fetching questions:", error);
     throw new Error("Failed to fetch questions.");
   }
 }
 
-/**
- * Counts the occurrences of each tag in the `tagged` table and returns the results.
- * Results are cached for 1 hour.
- */
-export const countTagsInFaq = unstable_cache(
-  async () => {
-    try {
-      // Fetch tag counts from the database
-      const tagCounts = await db.tagged.groupBy({
-        by: ["tag"],
-        _count: {
-          tag: true, // Count the occurrences of each tag
-        },
-        orderBy: {
-          _count: {
-            tag: "desc", // Sort by count in descending order
-          },
-        },
-      });
+export async function countTagsInFaq() {
+  const tagCounts = await db.tagged.groupBy({
+    by: ["tag"],
+    _count: {
+      id: true, // Count the occurrences of each tag
+    },
+  });
 
-      // Map the results to a more usable format
-      const tags = tagCounts.map(({ tag, _count }) => ({
-        tag,
-        count: _count.tag, // Use the count of the tag
-      }));
+  const tagsData = tagCounts.map(({ tag, _count }) => ({
+    tag,
+    count: _count.id,
+  }));
+  const totalCount = tagsData.reduce((sum, { count }) => sum + count, 0); // Calculate total count
+  // Update to include total count
 
-      // Calculate the total count of all tags
-      const totalCount = tags.reduce((sum, { count }) => sum + count, 0);
+  // Sort tags by count in descending order
+  const tags = tagsData.sort((a, b) => b.count - a.count);
 
-      return { tags, totalCount };
-    } catch (error) {
-      console.error("Error counting tags:", error);
-      throw new Error("Failed to count tags.");
-    }
-  },
-  ["countTagsInFaq"], // Cache key (unique identifier for this function)
-  {
-    revalidate: 3600, // Revalidate the cache every 1 hour (in seconds)
-  }
-);
+  return { tags, totalCount };
+}

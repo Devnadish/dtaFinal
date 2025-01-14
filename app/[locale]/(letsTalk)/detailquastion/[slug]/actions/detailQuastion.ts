@@ -19,17 +19,24 @@ export async function GetDetailQuastion(slug: string) {
         },
       },
       tagged: true,
+      images: true,
+      voiceRecordings: true,
+      faqInteractions: true,
+      // tags: true, // Uncomment this line if you want to include tags in the response
     },
   });
+  // add one to the viewrs
+  await incrementViewerCount(slug);
   return question;
 }
 
 export const incrementViewerCount = async (slug: string) => {
+  console.log(slug);
   await db.faq.update({
     where: { slug },
     data: { viewerCount: { increment: 1 } },
   });
-  revalidatePath(`/faq/ansewrd`);
+  // revalidatePath(`/show-all-quastion`);
 };
 
 export async function interactionAction(

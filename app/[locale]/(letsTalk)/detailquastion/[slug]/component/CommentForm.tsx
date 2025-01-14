@@ -18,7 +18,7 @@ function CommentForm({ answerId, userEmail, slug }: CommentFormProps) {
     success: "",
     error: undefined,
   });
-
+  console.log(userEmail);
   useEffect(() => {
     if (state.success) {
       toast.success(state.success);

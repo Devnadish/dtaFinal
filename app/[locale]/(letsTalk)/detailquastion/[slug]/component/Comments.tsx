@@ -16,6 +16,7 @@ interface CommentsProps {
   userEmail: string;
   item: Answer;
   slug: string;
+  islogin: boolean;
 }
 
 interface CommentItemProps {
@@ -25,14 +26,28 @@ interface CommentItemProps {
   locale: string;
 }
 
-async function Comments({ answerId, userEmail, item, slug }: CommentsProps) {
+async function Comments({
+  answerId,
+  userEmail,
+  item,
+  slug,
+  islogin,
+}: CommentsProps) {
   const locale = await getLocale();
 
   return (
     <div className="space-y-4 w-full max-w-2xl mx-auto">
       <div className="flex items-center gap-2">
-        <UserAvatar userEmail={userEmail} size="sm" />
-        <CommentForm answerId={answerId} userEmail={userEmail} slug={slug} />
+        {islogin && (
+          <>
+            <UserAvatar userEmail={userEmail} size="sm" />
+            <CommentForm
+              answerId={answerId}
+              userEmail={userEmail}
+              slug={slug}
+            />
+          </>
+        )}
       </div>
       <CommentStats commentCount={item.comments.length} locale={locale} />
       {item.comments.length > 0 ? (

@@ -44,8 +44,6 @@ const Logout = dynamic(
   }
 );
 
-
-
 export default function FooterBar() {
   const [isVisible, setIsVisible] = useState(false);
   const [showLangSwitcher, setShowLangSwitcher] = useState(true);
@@ -56,15 +54,13 @@ export default function FooterBar() {
     setShowLangSwitcher(pathname.includes("showdetail"));
   };
 
-
-
   return (
-    <footer className="fixed right-4 bottom-20 h-[300px] w-[50px] flex items-center justify-center transition-all duration-300">
+    <footer className="fixed right-4 bottom-16  rounded-lg  w-[50px] flex items-center justify-center transition-all duration-300 ">
       <motion.div
         initial={{ opacity: 0, height: 0, scale: 0.9 }}
         animate={{
           opacity: isVisible ? 1 : 0,
-          height: isVisible ? "300px" : 0,
+          height: isVisible ? "250px" : 0,
           scale: isVisible ? 1 : 0.9,
         }}
         transition={{
@@ -73,18 +69,12 @@ export default function FooterBar() {
           opacity: { duration: 0.3 },
           scale: { duration: 0.4 },
         }}
-        className="border border-border/40 rounded-full flex flex-col w-[50px] items-center 
-                  transition-all bg-background/80 backdrop-blur-sm h-[300px] justify-around 
-                  shadow-lg hover:shadow-xl hover:bg-background/90 
-                  dark:shadow-secondary/20"
+        className={`border border-border rounded-xl flex flex-col w-[50px] items-center 
+                  transition-all bg-background/80 backdrop-blur-sm  justify-evenly 
+                  shadow-lg hover:shadow-xl hover:bg-green-400/5 
+                  dark:shadow-secondary/20 `} // Hide without removing from DOM
       >
-        <div className="flex flex-col gap-4 py-4 items-center justify-center">
-          <WhatsAppButton />
-          <ContactUs />
-          {!showLangSwitcher && <LangSwicher />}
-          <ThemeSwicher />
-          <Logout />
-        </div>
+        {isVisible && <MenuItems showLangSwitcher />}
       </motion.div>
 
       <ToggleVisibilityButton
@@ -92,7 +82,18 @@ export default function FooterBar() {
         isVisible={isVisible}
       />
       <BackButton />
-
     </footer>
   );
 }
+
+const MenuItems = ({ showLangSwitcher }: { showLangSwitcher: boolean }) => {
+  return (
+    <div className="flex flex-col gap-4 py-4 items-center justify-center">
+      <WhatsAppButton />
+      <ContactUs />
+      {!showLangSwitcher && <LangSwicher />}
+      <ThemeSwicher />
+      <Logout />
+    </div>
+  );
+};
