@@ -14,10 +14,10 @@ export default function QuastionsList({ initialFAQs }: QuastionsListProps) {
   }
 
   return (
-    <>
+    <div id="homeQuastion">
       {initialFAQs.map((faq) => (
         <FAQItem key={faq.id} faq={faq} />
       ))}
-    </>
+    </div>
   );
 }

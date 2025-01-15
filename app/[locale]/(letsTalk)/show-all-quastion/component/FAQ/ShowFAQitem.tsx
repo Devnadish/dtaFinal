@@ -5,7 +5,6 @@ import { FAQ } from "@/type/faq";
 import { useLocale } from "next-intl";
 import { UserAvatar } from "@/components/UserAvatar";
 import AnswerCard from "../Answer/AnswerItem";
-import Link from "next/link";
 import { cn } from "../../../../../../lib/utils";
 import { buttonVariants } from "../../../../../../components/ui/button";
 import ShowDate from "../../../detailquastion/[slug]/component/ShowDate";
@@ -15,7 +14,7 @@ interface FAQItemProps {
   faq: FAQ;
 }
 
-// Internal MetadataDisplay Component
+// MetadataDisplay Component
 function MetadataDisplay({ faq }: { faq: FAQ }) {
   return (
     <div className="flex flex-wrap items-center text-sm text-muted-foreground gap-4">
@@ -31,7 +30,6 @@ function MetadataDisplay({ faq }: { faq: FAQ }) {
         <Icon icon="mdi:thumb-down" className="w-4 h-4 mr-1" />
         {faq.dislovCount} dislikes
       </span>
-
       <p className="ml-auto">
         <strong>Priority:</strong> {faq.priority}
       </p>
@@ -39,10 +37,10 @@ function MetadataDisplay({ faq }: { faq: FAQ }) {
   );
 }
 
-// Internal TagsDisplay Component
+// TagsDisplay Component
 function TagsDisplay({ faq }: { faq: FAQ }) {
   return (
-    <div className="flex flex-wrap gap-2 mb-4">
+    <div className="flex flex-wrap gap-2 mb-4 mt-2">
       {faq.tagged.map((tag, index) => (
         <Badge key={index} variant="secondary">
           {tag.tag}
@@ -52,45 +50,89 @@ function TagsDisplay({ faq }: { faq: FAQ }) {
   );
 }
 
-// Internal LinkComponent Component
+// MediaIndicator Component
+function MediaIndicator({
+  icon,
+  count,
+  bgColor,
+  borderColor,
+  textColor,
+}: {
+  icon: string;
+  count: number;
+  bgColor: string;
+  borderColor: string;
+  textColor: string;
+}) {
+  return (
+    <span
+      className={cn(
+        "flex items-center text-xs p-1 rounded-lg border justify-center",
+        bgColor,
+        borderColor,
+        textColor
+      )}
+    >
+      <Icon icon={icon} className="w-4 h-4 mr-1" />
+      {count}
+    </span>
+  );
+}
+
+// UserInfo Component
+function UserInfo({ faq }: { faq: FAQ }) {
+  return (
+    <div className="flex w-full items-center gap-2">
+      <UserAvatar userEmail={faq.userEmail} size="md" />
+      <CardTitle className="leading-5 font-semibold">{faq.question}</CardTitle>
+    </div>
+  );
+}
+
+// MediaIndicators Component
+function MediaIndicators({ faq }: { faq: FAQ }) {
+  return (
+    <div className="flex  items-center justify-end gap-2">
+      {faq.images.length > 0 && (
+        <MediaIndicator
+          icon="mdi:image"
+          count={faq.images.length}
+          bgColor="bg-green-800"
+          borderColor="border-green-400"
+          textColor="text-green-300"
+        />
+      )}
+      {faq.voiceRecordings.length > 0 && (
+        <MediaIndicator
+          icon="mdi:microphone"
+          count={faq.voiceRecordings.length}
+          bgColor="bg-purple-800"
+          borderColor="border-purple-400"
+          textColor="text-purple-300"
+        />
+      )}
+    </div>
+  );
+}
 
 // Main FAQItem Component
 export function FAQItem({ faq }: FAQItemProps) {
   const locale = useLocale();
 
   return (
-    <Card className="mb-6">
-      <CardHeader>
-        <ShowDate created={faq?.createdAt} updated={faq?.updatedAt} />
-        <div className="flex w-full flex-col gap-2">
-          <div className="flex w-full items-center gap-2">
-            <UserAvatar userEmail={faq.userEmail} size="md" />
-
-            <CardTitle className="leading-5 font-semibold">
-              {faq.question}
-            </CardTitle>
-          </div>
-          <div className="flex w-full items-center justify-end gap-2">
-            {faq.images.length > 0 && (
-              <span className="flex items-center text-xs bg-green-800 p-1 rounded-lg border border-green-400 text-green-300 justify-center">
-                <Icon icon="mdi:image" className="w-4 h-4 mr-1" />
-                {faq.images.length}
-              </span>
-            )}
-            {faq.voiceRecordings.length > 0 && (
-              <span className="flex items-center text-xs bg-purple-800 p-1 rounded-lg border border-purple-400 text-purple-300 justify-center">
-                <Icon icon="mdi:microphone" className="w-4 h-4 mr-1" />
-                {faq.voiceRecordings.length}
-              </span>
-            )}
-          </div>
+    <Card className="mb-6 overflow-hidden gap-2">
+      <CardHeader className="bg-secondary/70">
+        <div className="flex w-full items-center justify-between ">
+          <ShowDate created={faq?.createdAt} updated={faq?.updatedAt} />
+          <MediaIndicators faq={faq} />
         </div>
+        <UserInfo faq={faq} />
         <MetadataDisplay faq={faq} />
         <QLinkComponent
-          title={"Show All Answer Messages"}
+          title="Show All Answer Messages"
           className={cn(
-            buttonVariants({ variant: "default", size: "sm" }),
-            "text-blue-500 hover:text-blue-500 capitalize font-semibold"
+            buttonVariants({ variant: "outline", size: "sm" }),
+            "text-primary/70 hover:text-primary capitalize font-semibold w-full sm:w-1/3 justify-center self-center sm:self-end"
           )}
           slug={faq.slug}
           locale={locale}
@@ -98,7 +140,7 @@ export function FAQItem({ faq }: FAQItemProps) {
       </CardHeader>
       <CardContent>
         <TagsDisplay faq={faq} />
-        <AnswerCard faq={faq} />
+        <AnswerCard faq={faq} locale={locale} />
       </CardContent>
     </Card>
   );

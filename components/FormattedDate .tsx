@@ -37,10 +37,10 @@ async function FormattedDate({ date, icon }: FormattedDateProps) {
   };
 
   return (
-    <div className="flex items-center gap-2">
+    <time className="flex items-center gap-2">
       {icon} {/* Show the icon only if it is provided */}
       <span className="text-xs text-muted-foreground">{formatDate(date)}</span>
-    </div>
+    </time>
   );
 }
 

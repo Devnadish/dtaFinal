@@ -49,7 +49,10 @@ async function page({ searchParams }: propType) {
   const { QuestionsWithAnswers, tags, QueryCont } = FAQ;
 
   return (
-    <div className="flex w-full flex-col   gap-4 container mx-auto px-4  ">
+    <div
+      className="flex w-full flex-col   gap-4 container mx-auto px-4  "
+      id="homepage"
+    >
       {/* <FakFaq /> */}
       {/* <AddQuastionComponent /> */}
       <QuastionHeader QueryCont={QueryCont} />
