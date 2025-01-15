@@ -50,8 +50,8 @@ async function page({ searchParams }: propType) {
 
   return (
     <div className="flex w-full flex-col   gap-4 container mx-auto px-4  ">
-      <FakFaq />
-      <AddQuastionComponent />
+      {/* <FakFaq /> */}
+      {/* <AddQuastionComponent /> */}
       <QuastionHeader QueryCont={QueryCont} />
       <div className="flex items-center flex-wrap justify-between gap-4">
         <SearchComponent />

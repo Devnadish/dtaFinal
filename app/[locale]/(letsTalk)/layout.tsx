@@ -31,7 +31,7 @@ export default async function Layout({
       />
 
       <SidebarInset>
-        <SidebarTrigger className="-ml-1" />
+        <SidebarTrigger className="-ml-1 sticky top-[60px]" />
         <main className="px-4">{children}</main>
       </SidebarInset>
     </SidebarProvider>

@@ -2,12 +2,10 @@
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarMenu,
-  SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarSeparator,
@@ -18,7 +16,7 @@ import { Icon } from "@iconify/react"; // Import Iconify
 import Link from "next/link";
 import { useLocale } from "next-intl";
 import { SideHeader } from "./SideHeader";
-import AddQuastionComponent from "../show-all-quastion/component/AddQuastionComponent";
+import SideFooter from "./SideFooter";
 interface User {
   useEmail: string;
   useName: string;
@@ -28,7 +26,6 @@ interface User {
 export function FAQAppSidebar({ useEmail, useName, userImage }: User) {
   const locale = useLocale();
   const { state } = useSidebar();
-  // console.log("tag :>>", { tags });
 
   const quastions = [
     {
@@ -82,8 +79,8 @@ export function FAQAppSidebar({ useEmail, useName, userImage }: User) {
         name={useName}
         image={userImage}
         isCollapsed={state === "collapsed"}
+        locale={locale}
       />
-
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Questions</SidebarGroupLabel>
@@ -104,28 +101,14 @@ export function FAQAppSidebar({ useEmail, useName, userImage }: User) {
           </SidebarGroupContent>
         </SidebarGroup>
         <SidebarSeparator />
-        {/* <SidebarGroup>
-          <SidebarGroupLabel>Fliter</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {filterOptions.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <Link href={item.url} className="flex items-center gap-2">
-                      <Icon icon={item.icon} className="h-5 w-5" />{" "}
-                      <span>{item.title}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                  <SidebarMenuBadge>8</SidebarMenuBadge>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup> */}
       </SidebarContent>
-      <SidebarFooter className="bg-green-500">
-        {/* <AddQuastionComponent /> */}
-      </SidebarFooter>
+      <SideFooter
+        email={useEmail}
+        name={useName}
+        image={userImage}
+        isCollapsed={state === "collapsed"}
+        locale={locale}
+      />
     </Sidebar>
   );
 }

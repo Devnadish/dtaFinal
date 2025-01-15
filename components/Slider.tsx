@@ -15,16 +15,16 @@ import { ImageDialog } from "./Image-Dailog";
 
 export interface CarouselImage {
   id?: string;
-  url: string;
+  url?: string;
   title?: string;
   alt?: string;
-  published: boolean;
-  createdAt: Date;
-  faqId: string;
+  published?: boolean; // Optional
+  createdAt?: Date; // Optional
+  faqId?: string; // Optional
 }
 
 export interface CarouselProps {
-  images: CarouselImage[];
+  images?: CarouselImage[]; // Use the full CarouselImage type
   autoplayDelay?: number;
   className?: string;
 }
@@ -79,18 +79,10 @@ export default function Slider({
                 <CardContent className="p-0">
                   <div className="relative w-full h-[150px]">
                     <ImageDialog
-                      src={image.url}
-                      alt={image.alt || image.title || `Slide ${index + 1}`}
+                      src={image.url || ""}
+                      alt={image.url || image.url || `Slide ${index + 1}`}
                       className="w-full h-full object-contain"
                     />
-
-                    {image.title && (
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-6">
-                        <h3 className="text-xl font-semibold text-white">
-                          {image.title}
-                        </h3>
-                      </div>
-                    )}
                   </div>
                 </CardContent>
               </Card>

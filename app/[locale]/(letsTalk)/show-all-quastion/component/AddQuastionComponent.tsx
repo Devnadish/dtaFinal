@@ -1,12 +1,11 @@
-import { getLocale, getTranslations } from "next-intl/server";
-import { auth } from "@/auth";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
 import Text from "@/components/Text";
+import { useLocale, useTranslations } from "next-intl";
 
-export default async function AddQuastionComponent() {
-  const t = await getTranslations();
-  const locale = await getLocale();
+export default function AddQuastionComponent() {
+  const t = useTranslations();
+  const locale = useLocale();
 
   return (
     <div className="  w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2  ">

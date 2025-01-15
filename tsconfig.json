@@ -13,6 +13,7 @@
     "skipLibCheck": true,
 
     // Enable all strict type-checking options
+
     "strict": true,
 
     // Do not emit JavaScript files (only type checking)

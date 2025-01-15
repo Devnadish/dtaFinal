@@ -13,10 +13,7 @@ import ShowDate from "./ShowDate";
 import { getLocale } from "next-intl/server";
 import Text from "../../../../../../components/Text";
 import TagList from "./TagList";
-import { Icon } from "@iconify/react";
-import Slider from "../../../../../../components/Slider";
-import { CollapsibleComponent } from "../../../../../../components/ui/Collapse";
-import PlayVoice from "./PlayVoice";
+import ImageAndVoice from "./ImageAndVoiceControl";
 
 // Define the type for the props
 interface QuastionProps {
@@ -47,35 +44,40 @@ interface QuastionFooterProps {
   locale: string;
 }
 
-const QuastionContent = ({ item, userEmail, locale }: QuastionContentProps) => (
-  <CardContent className="flex flex-col p-6 bg-secondary/50 gap-2">
-    {item.images && item.images?.length > 0 && (
-      <CollapsibleComponent
-        title={<ImageCounter counter={item.images?.length} />}
-      >
-        <Slider images={item.images} />
-      </CollapsibleComponent>
-    )}
+const QuastionContent = ({ item, userEmail, locale }: QuastionContentProps) => {
+  const starttime = performance.now();
 
-    {item.voiceRecordings && item.voiceRecordings?.length > 0 && (
-      <>
-        <PlayVoice voice={item.voiceRecordings} />
-      </>
-    )}
-    <div className="flex items-start gap-4">
-      <UserInformation email={userEmail ?? ""} showName={false} />
-      <Text
-        variant="h3"
-        locale={locale}
-        className="text-lg font-semibold text-foreground"
-      >
-        {item.question}
-      </Text>
-    </div>
+  const transformedImages = item.images?.map((image) => ({
+    id: image.id,
+    url: image.url ?? undefined, // Use nullish coalescing to handle null/undefined
+  }));
 
-    <ShowDate created={item?.createdAt} updated={item?.updatedAt} />
-  </CardContent>
-);
+  const transformedvoice = item.voiceRecordings?.map((image) => ({
+    id: image.id,
+    url: image.url ?? undefined, // Use nullish coalescing to handle null/undefined
+  }));
+
+  return (
+    <CardContent className="flex flex-col p-6 bg-secondary/50 gap-2">
+      <ImageAndVoice
+        images={transformedImages || []}
+        voiceRecordings={transformedvoice || []}
+      />
+      <div className="flex items-start gap-4">
+        <UserInformation email={userEmail ?? ""} showName={false} />
+        <Text
+          variant="h3"
+          locale={locale}
+          className="text-lg font-semibold text-foreground"
+        >
+          {item.question}
+        </Text>
+      </div>
+
+      <ShowDate created={item?.createdAt} updated={item?.updatedAt} />
+    </CardContent>
+  );
+};
 
 const QuastionFooter = ({ item, userEmail }: QuastionFooterProps) => (
   <CardFooter className="flex items-center w-full justify-between p-4 border-t">
@@ -112,16 +114,3 @@ const Quastion: React.FC<QuastionProps> = async ({ item, userEmail }) => {
 };
 
 export default Quastion;
-
-const ImageCounter = ({ counter }: { counter: number }) => (
-  <span className="flex items-center text-xs bg-green-800 p-1 rounded-lg border border-green-400 text-green-300 justify-center">
-    <Icon icon="mdi:image" className="w-4 h-4 mr-1" />
-    {counter}
-  </span>
-);
-const Voice = ({ voice }: { voice: number }) => (
-  <span className="flex items-center text-xs bg-purple-800 p-1 rounded-lg border border-purple-400 text-purple-300 justify-center">
-    <Icon icon="mdi:microphone" className="w-4 h-4 mr-1" />
-    {voice.length}
-  </span>
-);

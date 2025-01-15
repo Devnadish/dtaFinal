@@ -2,7 +2,6 @@ import * as React from "react";
 import Image from "next/image";
 import { SidebarHeader } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 import avatar from "@/public/assets/image/default-avatar.png";
 import { User } from "lucide-react";
 
@@ -11,6 +10,7 @@ interface SideHeaderProps {
   name?: string;
   image?: string;
   isCollapsed: boolean;
+  locale?: string;
 }
 
 export function SideHeader({
@@ -18,6 +18,7 @@ export function SideHeader({
   name,
   image,
   isCollapsed,
+  locale,
 }: SideHeaderProps) {
   const isUserLoggedIn = !!(email || name || image);
 

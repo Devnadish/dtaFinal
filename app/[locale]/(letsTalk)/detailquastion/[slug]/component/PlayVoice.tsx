@@ -7,6 +7,7 @@ interface voiceProps {
   id: string;
   url: string;
 }
+[];
 
 const PlayVoice = ({ voice }: { voice: voiceProps[] }) => {
   const [isPlaying, setIsPlaying] = useState(false);
